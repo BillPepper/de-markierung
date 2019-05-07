@@ -1,7 +1,7 @@
 var keywordArray = [
-  ['Flüchtlings', 'Jungen', 1],
-  ['Türken', 'Männer', 1],
-  ['Deutsch-Armenier', 'Junge', 2]
+  ['Flüchtlings', 'Jungen', 30],
+  ['Türken', 'Männer', 60],
+  ['Deutsch-Armenier', 'Junge', 10]
 ]
 
 $(function() {
@@ -12,7 +12,7 @@ $(function() {
   keywordArray.forEach(function(num) {
     innerHTML = innerHTML.replace(
       new RegExp(num[0], 'g'),
-      "<span class='mark'>" + num[1] + '</span>'
+      "<span class='mark " + percentToColor(num[2]) + "'>" + num[1] + '</span>'
     )
   })
 
@@ -33,6 +33,24 @@ function getIndicesOf(searchStr, str) {
     startIndex = index + searchStrLen
   }
   return indices
+}
+
+function percentToColor(number) {
+  if (number > 80) {
+    return 'eighty'
+  }
+  if (number > 60) {
+    return 'sixty'
+  }
+  if (number > 40) {
+    return 'fourty'
+  }
+  if (number > 20) {
+    return 'twenty'
+  }
+  if (number > 0) {
+    return 'zero'
+  }
 }
 
 var ctx = document.getElementById('myChart').getContext('2d')

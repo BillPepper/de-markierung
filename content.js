@@ -1,11 +1,15 @@
-console.log('hello content.js')
+console.clear()
+console.log('content.js')
+var arr = [['Wolf']]
+var body = $('#js-article-column')
+var innerHTML = body.html()
 
-const searchMe = 'Wolf'
-
-const content = document.getElementById('js-article-column')
-if (content) {
-  const article = content.children[0]
-  console.log(article.innerHTML)
-  searchMe.search(article.innerHTML)
+arr.forEach(function(num) {
+  innerHTML = innerHTML.replace(
+    new RegExp(num, 'g'),
+    '<span style="background-color: red">' + num + '</span>'
+  )
   debugger
-}
+})
+
+body.html(innerHTML)

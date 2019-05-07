@@ -12,7 +12,6 @@ chrome.runtime.onInstalled.addListener(function() {
     contexts: [context],
     id: 'context' + context
   })
-  debugger
 })
 
 chrome.contextMenus.onClicked.addListener(onClickHandler)

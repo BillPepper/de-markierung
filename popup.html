@@ -13,6 +13,8 @@
 
       .mgmt {
         padding-left: 15px;
+        border-bottom: 1px solid;
+        padding-bottom: 15px;
       }
 
       .zero {
@@ -31,9 +33,27 @@
         background-color: #f140a9;
       }
 
+      .redText {
+        color: #d22027;
+      }
+
       ul > li > a {
         color: #999;
-        font-size: 20px;
+        font-size: 15px;
+      }
+
+      ul > li > a:hover {
+        color: #d22027;
+        transition: color 0.5s ease;
+      }
+
+      .appName {
+        border-bottom: 1px solid #999;
+        padding-bottom: 15px;
+      }
+
+      canvas#myChart {
+        padding-top: 15px;
       }
 
       body {
@@ -45,6 +65,9 @@
   </head>
 
   <body>
+    <h2 class="appName">
+      <span class="redText">[</span>de<span class="redText">]</span>markierung
+    </h2>
     <ul class="mgmt">
       <li>
         <a href="#">Add this site</a>
@@ -83,7 +106,7 @@
         </p>
       </div>
     </div>
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <canvas id="myChart" width="400" height="250"></canvas>
     <script src="popup.js"></script>
   </body>
 </html>

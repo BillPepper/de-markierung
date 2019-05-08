@@ -2,7 +2,7 @@ var ctx = document.getElementById('myChart').getContext('2d')
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ['Jungen', 'Männer', 'Junge'],
+    labels: ['Flüchtlings', 'Türken', 'Deutsch-Armenier'],
     datasets: [
       {
         label: 'occurrences',

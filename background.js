@@ -19,4 +19,8 @@ chrome.contextMenus.onClicked.addListener(onClickHandler)
 function onClickHandler(info, tab) {
   var sText = info.selectionText
   console.log("You don't like the word ", sText)
+  let msg = {
+    txt: sText
+  }
+  chrome.tabs.sendMessage(tab.id, msg)
 }

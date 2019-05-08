@@ -6,7 +6,7 @@ console.log('background started')
 
 chrome.runtime.onInstalled.addListener(function() {
   var context = 'selection'
-  var title = "I don't like this word"
+  var title = 'Ich mag dieses Wort nicht'
   var id = chrome.contextMenus.create({
     title: title,
     contexts: [context],

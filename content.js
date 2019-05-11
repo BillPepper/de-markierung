@@ -6,6 +6,7 @@ var innerHTML = article.html()
 
 let strippedElements = stripBlacklistedItems()
 refreshHighlightedKeywords()
+createMenu()
 
 function refreshHighlightedKeywords() {
   strippedElements.forEach(function(element) {
@@ -56,4 +57,28 @@ function messageReceived(message, sender, sendResponse) {
   refreshHighlightedKeywords()
 }
 
+function createMenu() {
+  let menugBackground = document.createElement('div')
+  menugBackground.id = 'de-markierung-menubg'
+  menugBackground.style =
+    'background-color: #000;background-color: rgb(0, 0, 0, 0.5); position: absolute; top: 0; left: 0;width: 100vw; height: 100vh'
+
+  let menu = document.createElement('div')
+  menu.id = 'de-markierung-menu'
+  menu.style =
+    'width: 300px; height: 100px; background-color: #555;margin: auto;margin-top: 20%; padding: 20px;'
+
+  let text = document.createElement('h4')
+  text.innerHTML = 'Womit soll das Wort XYZ ersetzt werden?'
+
+  let wInput = document.createElement('input')
+
+  let wButton = document.createElement('button')
+  wButton.innerHTML = 'Ersetzen'
+
+  menugBackground.appendChild(menu)
+  menu.appendChild(text)
+  menu.appendChild(wInput)
+  menu.appendChild(wButton)
+  document.body.appendChild(menugBackground)
 }

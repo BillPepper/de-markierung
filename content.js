@@ -1,4 +1,9 @@
-var arrKeywords = [['Tempora', 'COOL'], ['Nulla', 'GREAT']]
+var arrKeywords = [
+  // FIXME: fix case sensitivity
+  ['Tempora', 'COOL'],
+  ['Nulla', 'GREAT'],
+  ['Headlines', 'blabbelblubs']
+]
 var arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
 
 let strippedElements = stripBlacklistedItems()

@@ -1,5 +1,3 @@
-console.clear()
-console.log('content.js')
 var arr = [['Wolf']]
 var body = $('#js-article-column')
 var innerHTML = body.html()

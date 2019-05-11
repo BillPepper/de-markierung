@@ -11,6 +11,7 @@ var arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
 
 let strippedElements = stripBlacklistedItems()
 refreshHighlightedKeywords()
+createMenu()
 
 function refreshHighlightedKeywords() {
   strippedElements.forEach(function(element) {
@@ -57,15 +58,35 @@ chrome.runtime.onMessage.addListener(messageReceived)
 
 function messageReceived(message, sender, sendResponse) {
   console.log(message)
-  arrKeywords.push([message.txt, 'test'])
-  refreshHighlightedKeywords()
+
+  setMenuVisible(true)
+
+  let text = document.getElementById('de-markierung-text')
+  text.innerHTML = 'Womit soll das Wort "' + message.txt + '" ersetzt werden'
+  // arrKeywords.push([message.txt, 'test'])
+  // refreshHighlightedKeywords()
+
+  let wButton = document.getElementById('de-markierung-menu-button')
+  wButton.addEventListener('click', handleAccept)
+}
+
+function handleAccept() {
+  let wInput = document.getElementById('de-markierung-input')
+  console.log(wInput.innerHTML)
+}
+
+function setMenuVisible(isVisable) {
+  let menugBackground = document.getElementById('de-markierung-menubg')
+  menugBackground.style.display = isVisable ? 'block' : 'none'
 }
 
 function createMenu() {
   let menugBackground = document.createElement('div')
   menugBackground.id = 'de-markierung-menubg'
   menugBackground.style =
-    'background-color: #000;background-color: rgb(0, 0, 0, 0.5); position: absolute; top: 0; left: 0;width: 100vw; height: 100vh'
+    'background-color: #000;background-color: rgb(0, 0, 0, 0.5); position: absolute; top: 0; left: 0;width: 100vw; height: 100vh; border-radius: 5px;'
+
+  menugBackground.style.display = 'none'
 
   let menu = document.createElement('div')
   menu.id = 'de-markierung-menu'
@@ -73,11 +94,14 @@ function createMenu() {
     'width: 300px; height: 100px; background-color: #555;margin: auto;margin-top: 20%; padding: 20px;'
 
   let text = document.createElement('h4')
+  text.id = 'de-markierung-text'
   text.innerHTML = 'Womit soll das Wort XYZ ersetzt werden?'
 
   let wInput = document.createElement('input')
+  wInput.id = 'de-markierung-input'
 
   let wButton = document.createElement('button')
+  wButton.id = 'de-markierung-menu-button'
   wButton.innerHTML = 'Ersetzen'
 
   menugBackground.appendChild(menu)

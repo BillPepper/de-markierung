@@ -1,12 +1,8 @@
 var arrKeywords = [['Tempora', 'COOL'], ['Nulla', 'GREAT']]
 var arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
 
-var article = $('#body')
-var innerHTML = article.html()
-
 let strippedElements = stripBlacklistedItems()
 refreshHighlightedKeywords()
-createMenu()
 
 function refreshHighlightedKeywords() {
   strippedElements.forEach(function(element) {

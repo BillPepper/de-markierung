@@ -8,10 +8,12 @@
 var arrKeywords = []
 
 var arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
+console.log('hello content')
 
 let strippedElements = stripBlacklistedItems()
 refreshHighlightedKeywords()
 createMenu()
+setMenuVisible(false)
 
 function refreshHighlightedKeywords() {
   strippedElements.forEach(function(element) {
@@ -61,52 +63,40 @@ function messageReceived(message, sender, sendResponse) {
 
   setMenuVisible(true)
 
-  let text = document.getElementById('de-markierung-text')
-  text.innerHTML = 'Womit soll das Wort "' + message.txt + '" ersetzt werden'
-  // arrKeywords.push([message.txt, 'test'])
-  // refreshHighlightedKeywords()
-
-  let wButton = document.getElementById('de-markierung-menu-button')
-  wButton.addEventListener('click', handleAccept)
-}
-
-function handleAccept() {
-  let wInput = document.getElementById('de-markierung-input')
-  console.log(wInput.innerHTML)
+  arrKeywords.push([message.txt, 'test'])
+  refreshHighlightedKeywords()
 }
 
 function setMenuVisible(isVisable) {
-  let menugBackground = document.getElementById('de-markierung-menubg')
+  let menugBackground = document.getElementById('de-markierung-menu')
   menugBackground.style.display = isVisable ? 'block' : 'none'
 }
 
 function createMenu() {
-  let menugBackground = document.createElement('div')
-  menugBackground.id = 'de-markierung-menubg'
-  menugBackground.style =
-    'background-color: #000;background-color: rgb(0, 0, 0, 0.5); position: absolute; top: 0; left: 0;width: 100vw; height: 100vh; border-radius: 5px;'
-
-  menugBackground.style.display = 'none'
-
+  let html =
+    '<h2 id="de-markierung-text"> \
+      Womit soll das Wort ersetzt werden? \
+    </h2> \
+    <div class="de-markierung-inputs"> \
+      <input class="input" id="wordInput" type="input"/> \
+      <input class="input" type="submit" value="Ersetzen"/> \
+    </div>'
   let menu = document.createElement('div')
   menu.id = 'de-markierung-menu'
   menu.style =
-    'width: 300px; height: 100px; background-color: #555;margin: auto;margin-top: 20%; padding: 20px;'
+    'background-color: #000;background-color: rgb(0, 0, 0, 0.5); position: absolute; top: 0; left: 0;width: 100vw; height: 100vh; border-radius: 5px;'
 
-  let text = document.createElement('h4')
-  text.id = 'de-markierung-text'
-  text.innerHTML = 'Womit soll das Wort XYZ ersetzt werden?'
+  let menuForm = document.createElement('form')
+  menuForm.id = 'menuForm'
+  menuForm.style =
+    'width: 400px; height: auto; ackground-color: #555;margin: auto;margin-top: 20%; padding: 20px;'
 
-  let wInput = document.createElement('input')
-  wInput.id = 'de-markierung-input'
+  menuForm.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log(e.target.wordInput.value)
+  })
 
-  let wButton = document.createElement('button')
-  wButton.id = 'de-markierung-menu-button'
-  wButton.innerHTML = 'Ersetzen'
-
-  menugBackground.appendChild(menu)
-  menu.appendChild(text)
-  menu.appendChild(wInput)
-  menu.appendChild(wButton)
-  document.body.appendChild(menugBackground)
+  menuForm.innerHTML = html
+  menu.appendChild(menuForm)
+  document.body.appendChild(menu)
 }

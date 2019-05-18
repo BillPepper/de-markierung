@@ -19,7 +19,7 @@ $(function() {
   body.html(innerHTML)
 })
 
-function getIndicesOf(searchStr, str) {
+const getIndicesOf = (searchStr, str) => {
   var searchStrLen = searchStr.length
   if (searchStrLen == 0) {
     return []
@@ -35,7 +35,7 @@ function getIndicesOf(searchStr, str) {
   return indices
 }
 
-function percentToColor(number) {
+const percentToColor = number => {
   if (number > 80) {
     return 'eighty'
   }

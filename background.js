@@ -1,7 +1,3 @@
-// chrome.tabs.getSelected(null, function(tab) {
-//   console.log(tab)
-// })
-
 console.log('background started')
 
 chrome.runtime.onInstalled.addListener(function() {

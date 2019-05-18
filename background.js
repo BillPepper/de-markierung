@@ -1,5 +1,3 @@
-console.log('background started')
-
 chrome.runtime.onInstalled.addListener(function() {
   var context = 'selection'
   var title = 'Ich mag dieses Wort nicht'

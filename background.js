@@ -1,3 +1,11 @@
+const onClickHandler = (info, tab) => {
+  var sText = info.selectionText
+  console.log("You don't like the word ", sText)
+  let msg = {
+    txt: sText
+  }
+  chrome.tabs.sendMessage(tab.id, msg)
+}
 chrome.runtime.onInstalled.addListener(function() {
   var context = 'selection'
   var title = 'Ich mag dieses Wort nicht'
@@ -9,12 +17,3 @@ chrome.runtime.onInstalled.addListener(function() {
 })
 
 chrome.contextMenus.onClicked.addListener(onClickHandler)
-
-function onClickHandler(info, tab) {
-  var sText = info.selectionText
-  console.log("You don't like the word ", sText)
-  let msg = {
-    txt: sText
-  }
-  chrome.tabs.sendMessage(tab.id, msg)
-}

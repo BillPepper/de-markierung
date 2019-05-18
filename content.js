@@ -1,20 +1,10 @@
-var arrKeywords = []
-
-var arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
-console.log('hello content')
-
-let strippedElements = stripBlacklistedItems()
-refreshHighlightedKeywords()
-createMenu()
-setMenuVisible(false)
-
-function refreshHighlightedKeywords() {
+const refreshHighlightedKeywords = () => {
   strippedElements.forEach(function(element) {
     element.innerHTML = highlightKeywords(element.innerHTML, arrKeywords)
   })
 }
 
-function stripBlacklistedItems() {
+const stripBlacklistedItems = () => {
   let arrRet = []
   let allNodes = document.getElementsByTagName('*')
   for (let i = 0; i < allNodes.length; i++) {
@@ -26,7 +16,7 @@ function stripBlacklistedItems() {
   return arrRet
 }
 
-function elementIsBlacklisted(element) {
+const elementIsBlacklisted = element => {
   ret = false
   for (let i = 0; i < arrBlacklistElements.length; i++) {
     if (element.tagName.toLowerCase() === arrBlacklistElements[i]) {
@@ -37,7 +27,7 @@ function elementIsBlacklisted(element) {
   return ret
 }
 
-function highlightKeywords(inText, keywords) {
+const highlightKeywords = (inText, keywords) => {
   for (let i = 0; i < keywords.length; i++) {
     inText = inText.replace(
       new RegExp(keywords[i][0], 'g'),
@@ -49,23 +39,17 @@ function highlightKeywords(inText, keywords) {
   return inText
 }
 
-chrome.runtime.onMessage.addListener(messageReceived)
-
-function messageReceived(message, sender, sendResponse) {
-  console.log(message)
-
+const messageReceived = (message, sender, sendResponse) => {
   setMenuVisible(true)
-
-  arrKeywords.push([message.txt, 'test'])
-  refreshHighlightedKeywords()
+  currentFilter[0] = message.txt
 }
 
-function setMenuVisible(isVisable) {
+const setMenuVisible = isVisable => {
   let menugBackground = document.getElementById('de-markierung-menu')
   menugBackground.style.display = isVisable ? 'block' : 'none'
 }
 
-function createMenu() {
+const createMenu = () => {
   let html =
     '<h2 id="de-markierung-text"> \
       Womit soll das Wort ersetzt werden? \
@@ -84,12 +68,35 @@ function createMenu() {
   menuForm.style =
     'width: 400px; height: auto; ackground-color: #555;margin: auto;margin-top: 20%; padding: 20px;'
 
-  menuForm.addEventListener('submit', e => {
-    e.preventDefault()
-    console.log(e.target.wordInput.value)
-  })
+  menuForm.addEventListener('submit', handleSubmit)
 
   menuForm.innerHTML = html
   menu.appendChild(menuForm)
   document.body.appendChild(menu)
 }
+
+const handleSubmit = e => {
+  e.preventDefault()
+  setMenuVisible(false)
+  currentFilter[1] = e.target.wordInput.value
+  arrKeywords.push(currentFilter)
+  currentFilter = []
+  refreshHighlightedKeywords()
+}
+
+const init = () => {
+  chrome.runtime.onMessage.addListener(messageReceived)
+
+  refreshHighlightedKeywords()
+  createMenu()
+  setMenuVisible(false)
+
+  debug()
+}
+
+let arrKeywords = []
+let currentFilter = []
+let arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
+let strippedElements = stripBlacklistedItems()
+
+init()

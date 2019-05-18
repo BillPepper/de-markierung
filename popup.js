@@ -4,21 +4,6 @@ var keywordArray = [
   ['Deutsch-Armenier', 'Junge', 10]
 ]
 
-$(function() {
-  var body = $('#swear')
-  var innerHTML = body.text()
-  console.log(innerHTML)
-
-  keywordArray.forEach(function(num) {
-    innerHTML = innerHTML.replace(
-      new RegExp(num[0], 'g'),
-      "<span class='mark " + percentToColor(num[2]) + "'>" + num[1] + '</span>'
-    )
-  })
-
-  body.html(innerHTML)
-})
-
 const getIndicesOf = (searchStr, str) => {
   var searchStrLen = searchStr.length
   if (searchStrLen == 0) {

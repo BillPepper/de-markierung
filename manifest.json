@@ -13,7 +13,7 @@
   "content_scripts": [
     {
       "matches": ["http://127.0.0.1:5500/testpage.html*"],
-      "js": ["3rdParty/jquery-3.4.1.js", "content.js"]
+      "js": ["content.js"]
     }
   ],
 

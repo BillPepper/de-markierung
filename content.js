@@ -84,6 +84,20 @@ const handleSubmit = e => {
   refreshHighlightedKeywords()
 }
 
+debug = () => {
+  console.log('make post request')
+
+  const xhr = new XMLHttpRequest()
+  xhr.open('POST', 'http://localhost:3000/keywords', true)
+  xhr.setRequestHeader('Content-Type', 'application/json')
+  xhr.send(
+    JSON.stringify({
+      searchTerm: 'test',
+      replacement: 'test'
+    })
+  )
+}
+
 const init = () => {
   chrome.runtime.onMessage.addListener(messageReceived)
 

@@ -38,7 +38,9 @@ const highlightKeywords = (inText, keywords) => {
             '">' +
             keywords[i][1] +
             '</span>'
-        : '<span style="border-bottom: 2px dotted green">' +
+        : '<span style="border-bottom: 2px dotted ' +
+            percentToColor(keywords[i][3]) +
+            '">' +
             keywords[i][0] +
             '</span>'
     )
@@ -70,8 +72,8 @@ const getKeywordsFromDB = () => {
   // or just marked, the fourth tells the amount of appearences
   let tmpList = [
     ['Lorem', 'replaced', true, 80],
-    ['quidem', 'also replaced', true, 10],
-    ['autem', 'foo', false, 10],
+    ['quidem', 'also replaced', true, 60],
+    ['autem', 'foo', false, 40],
     ['perferendis', 'bar', false, 20]
   ]
   return tmpList

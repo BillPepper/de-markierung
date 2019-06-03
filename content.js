@@ -31,7 +31,7 @@ const highlightKeywords = (inText, keywords) => {
   for (let i = 0; i < keywords.length; i++) {
     inText = inText.replace(
       new RegExp(keywords[i][0], 'g'),
-      '<span style="background-color: red; color: #333">' +
+      '<span style="border-bottom: 2px dotted dodgerblue">' +
         keywords[i][1] +
         '</span>'
     )

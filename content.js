@@ -29,11 +29,16 @@ const elementIsBlacklisted = element => {
 
 const highlightKeywords = (inText, keywords) => {
   for (let i = 0; i < keywords.length; i++) {
+    shouldBeReplaced = keywords[i][2]
     inText = inText.replace(
       new RegExp(keywords[i][0], 'g'),
-      '<span style="border-bottom: 2px dotted dodgerblue">' +
-        keywords[i][1] +
-        '</span>'
+      shouldBeReplaced
+        ? '<span style="border-bottom: 2px dotted dodgerblue">' +
+            keywords[i][1] +
+            '</span>'
+        : '<span style="border-bottom: 2px dotted green">' +
+            keywords[i][0] +
+            '</span>'
     )
   }
   return inText
@@ -41,7 +46,9 @@ const highlightKeywords = (inText, keywords) => {
 
 const getKeywordsFromDB = () => {
   // this should be returned from the backend later on
-  let tmpList = [['Lorem', 'test'], ['autem', 'foo']]
+  // the third value in the array tells if the word should be replaced
+  // or just marked as know
+  let tmpList = [['Lorem', 'test', true], ['autem', 'foo', false]]
   return tmpList
 }
 

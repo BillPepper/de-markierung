@@ -37,3 +37,20 @@ const percentToColor = number => {
     return 'zero'
   }
 }
+
+const getKeywordFromDB = () => {
+  var xhr = new XMLHttpRequest()
+  xhr.open('GET', 'http://localhost:3000/keywords', true)
+  xhr.send(null)
+
+  return xhr.response
+}
+
+const response = getKeywordFromDB()
+console.log(response)
+
+const dbData = document.getElementById('dbData')
+const data = document.createElement('span')
+data.innerHTML = response
+
+dbData.appendChild(data)

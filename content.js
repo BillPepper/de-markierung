@@ -33,7 +33,9 @@ const highlightKeywords = (inText, keywords) => {
     inText = inText.replace(
       new RegExp(keywords[i][0], 'g'),
       shouldBeReplaced
-        ? '<span style="border-bottom: 2px dotted dodgerblue">' +
+        ? '<span style="border-bottom: 2px dotted ' +
+            percentToColor(keywords[i][3]) +
+            '">' +
             keywords[i][1] +
             '</span>'
         : '<span style="border-bottom: 2px dotted green">' +
@@ -44,11 +46,34 @@ const highlightKeywords = (inText, keywords) => {
   return inText
 }
 
+const percentToColor = number => {
+  if (number > 80) {
+    return '#d22027'
+  }
+  if (number > 60) {
+    return '#db4d41'
+  }
+  if (number > 40) {
+    return '#f140a9'
+  }
+  if (number > 20) {
+    return '#f9a766'
+  }
+  if (number > 0) {
+    return '#fff200'
+  }
+}
+
 const getKeywordsFromDB = () => {
   // this should be returned from the backend later on
   // the third value in the array tells if the word should be replaced
-  // or just marked as know
-  let tmpList = [['Lorem', 'test', true], ['autem', 'foo', false]]
+  // or just marked, the fourth tells the amount of appearences
+  let tmpList = [
+    ['Lorem', 'replaced', true, 80],
+    ['quidem', 'also replaced', true, 10],
+    ['autem', 'foo', false, 10],
+    ['perferendis', 'bar', false, 20]
+  ]
   return tmpList
 }
 

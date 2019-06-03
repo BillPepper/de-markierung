@@ -61,7 +61,6 @@ const init = () => {
 }
 
 let arrKeywords = getKeywordsFromDB()
-let currentFilter = []
 let arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
 let strippedElements = stripBlacklistedItems()
 

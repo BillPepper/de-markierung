@@ -1,0 +1,24 @@
+{
+  "name": "de-markierung-plugin",
+  "version": "0.0.1",
+  "description": "## Installation",
+  "main": "content.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/BillPepper/de-markierung-plugin.git"
+  },
+  "author": "Mattes Wenzel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/BillPepper/de-markierung-plugin/issues"
+  },
+  "homepage": "https://gitlab.com/BillPepper/de-markierung-plugin#readme",
+  "devDependencies": {
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.2"
+  }
+}

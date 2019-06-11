@@ -79,11 +79,26 @@ const getKeywordsFromDB = () => {
   return tmpList
 }
 
+function httpGet(theUrl) {
+  var xmlHttp = new XMLHttpRequest()
+  xmlHttp.open('GET', theUrl, false)
+  xmlHttp.send(null)
+  return xmlHttp.responseText
+}
+
 const messageReceived = (message, sender, sendResponse) => {
-  arrKeywords.push([
-    message.txt,
-    window.prompt('Womit soll das Wort ersetzt werden?', '')
-  ])
+  const usrInput = window.prompt('Womit soll das Wort ersetzt werden?', '')
+
+  if (arrBlacklistElements.indexOf(usrInput) === -1) {
+    arrKeywords.push([
+      message.txt,
+      usrInput,
+      true,
+      0 // FIXME: the true and 0 value are static and should use db data or a usr decision
+    ])
+  } else {
+    alert('Dieses Wort steht auf der schwarzen Liste.')
+  }
 
   refreshHighlightedKeywords()
 }
@@ -94,8 +109,13 @@ const init = () => {
   refreshHighlightedKeywords()
 }
 
+const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/' // FIXME: This is not meant for Productoin!
+const API_URL = 'http://de-markierung.herokuapp.com'
+
 let arrKeywords = getKeywordsFromDB()
-let arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
+let arrBlacklistElements = JSON.parse(
+  httpGet(CORS_PROXY + API_URL + '/blacklist')
+)
 let strippedElements = stripBlacklistedItems()
 
 init()

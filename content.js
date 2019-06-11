@@ -89,7 +89,7 @@ function httpGet(theUrl) {
 const messageReceived = (message, sender, sendResponse) => {
   const usrInput = window.prompt('Womit soll das Wort ersetzt werden?', '')
 
-  if (arrBlacklistElements.indexOf(usrInput) === -1) {
+  if (arrBlacklistWords.indexOf(usrInput) === -1) {
     arrKeywords.push([
       message.txt,
       usrInput,
@@ -113,9 +113,8 @@ const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/' // FIXME: This is not 
 const API_URL = 'http://de-markierung.herokuapp.com'
 
 let arrKeywords = getKeywordsFromDB()
-let arrBlacklistElements = JSON.parse(
-  httpGet(CORS_PROXY + API_URL + '/blacklist')
-)
+let arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
+let arrBlacklistWords = JSON.parse(httpGet(CORS_PROXY + API_URL + '/blacklist'))
 let strippedElements = stripBlacklistedItems()
 
 init()

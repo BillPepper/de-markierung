@@ -12,7 +12,10 @@
 
   "content_scripts": [
     {
-      "matches": ["http://127.0.0.1:5500/testpage.html*"],
+      "matches": [
+        "http://127.0.0.1:5500/testpage.html*",
+        "https://www.spiegel.de/politik/deutschland/wie-der-wolf-zum-wahlkampfthema-wird-a-1266043.html"
+      ],
       "js": ["content.js"]
     }
   ],

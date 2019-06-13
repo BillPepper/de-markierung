@@ -64,6 +64,9 @@ const percentToColor = number => {
   if (number > 0) {
     return '#fff200'
   }
+  if (number === 0) {
+    return '#006600'
+  }
 }
 
 const getKeywordsFromDB = () => {

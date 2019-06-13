@@ -82,7 +82,7 @@ const getKeywordsFromDB = () => {
   return tmpList
 }
 
-function httpGet(theUrl) {
+const httpGet = theUrl => {
   var xmlHttp = new XMLHttpRequest()
   xmlHttp.open('GET', theUrl, false)
   xmlHttp.send(null)

@@ -29,20 +29,11 @@ const elementIsBlacklisted = element => {
 
 const highlightKeywords = (inText, keywords) => {
   for (let i = 0; i < keywords.length; i++) {
-    shouldBeReplaced = keywords[i][2]
     inText = inText.replace(
-      new RegExp(keywords[i][0], 'g'),
-      shouldBeReplaced
-        ? '<span style="border-bottom: 2px dotted ' +
-            percentToColor(keywords[i][3]) +
-            '">' +
-            keywords[i][1] +
-            '</span>'
-        : '<span style="border-bottom: 2px dotted ' +
-            percentToColor(keywords[i][3]) +
-            '">' +
-            keywords[i][0] +
-            '</span>'
+      new RegExp(keywords[i].key, 'g'),
+      '<span style="border-bottom: 2px dotted yellow">' +
+        keywords[i].alternatives[0].word +
+        '</span>'
     )
   }
   return inText
@@ -69,19 +60,6 @@ const percentToColor = number => {
   }
 }
 
-const getKeywordsFromDB = () => {
-  // this should be returned from the backend later on
-  // the third value in the array tells if the word should be replaced
-  // or just marked, the fourth tells the amount of appearences
-  let tmpList = [
-    ['Lorem', 'replaced', true, 80],
-    ['quidem', 'also replaced', true, 60],
-    ['autem', 'foo', false, 40],
-    ['perferendis', 'bar', false, 20]
-  ]
-  return tmpList
-}
-
 const httpGet = theUrl => {
   var xmlHttp = new XMLHttpRequest()
   xmlHttp.open('GET', theUrl, false)
@@ -96,7 +74,7 @@ const messageReceived = (message, sender, sendResponse) => {
     arrKeywords.push([
       message.txt,
       usrInput,
-      true,
+      false,
       0 // FIXME: the true and 0 value are static and should use db data or a usr decision
     ])
   } else {
@@ -115,7 +93,8 @@ const init = () => {
 const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/' // FIXME: This is not meant for Productoin!
 const API_URL = 'http://de-markierung.herokuapp.com'
 
-let arrKeywords = getKeywordsFromDB()
+let arrKeywords = JSON.parse(httpGet(CORS_PROXY + API_URL + '/maps'))
+debugger
 let arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
 let arrBlacklistWords = JSON.parse(httpGet(CORS_PROXY + API_URL + '/blacklist'))
 let strippedElements = stripBlacklistedItems()

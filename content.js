@@ -60,13 +60,6 @@ const percentToColor = number => {
   }
 }
 
-const httpGet = theUrl => {
-  var xmlHttp = new XMLHttpRequest()
-  xmlHttp.open('GET', theUrl, false)
-  xmlHttp.send(null)
-  return xmlHttp.responseText
-}
-
 const messageReceived = (message, sender, sendResponse) => {
   const usrInput = window.prompt('Womit soll das Wort ersetzt werden?', '')
 
@@ -87,16 +80,28 @@ const messageReceived = (message, sender, sendResponse) => {
 const init = () => {
   chrome.runtime.onMessage.addListener(messageReceived)
 
+  chrome.runtime.sendMessage({ message: 'get_keywords' }, function(response) {
+    arrKeywords = response.keywords
+  })
+
+  chrome.runtime.sendMessage({ message: 'get_blacklist' }, function(response) {
+    arrBlacklistWords = response.blacklist
+  })
+
   refreshHighlightedKeywords()
 }
 
-const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/' // FIXME: This is not meant for Productoin!
-const API_URL = 'http://de-markierung.herokuapp.com'
+let arrKeywords
+let arrBlacklistWords
 
-let arrKeywords = JSON.parse(httpGet(CORS_PROXY + API_URL + '/maps'))
-debugger
-let arrBlacklistElements = ['head', 'meta', 'title', 'link', 'style', 'script']
-let arrBlacklistWords = JSON.parse(httpGet(CORS_PROXY + API_URL + '/blacklist'))
-let strippedElements = stripBlacklistedItems()
+const arrBlacklistElements = [
+  'head',
+  'meta',
+  'title',
+  'link',
+  'style',
+  'script'
+]
+const strippedElements = stripBlacklistedItems()
 
 init()

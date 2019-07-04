@@ -1,20 +1,19 @@
-// const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/' // FIXME: This is not meant for Productoin!
-// const API_URL = 'http://de-markierung.herokuapp.com'
+const onClickHandler = (info, tab) => {
+  var sText = info.selectionText
+  console.log("You don't like the word ", sText)
+  let msg = {
+    txt: sText
+  }
+  chrome.tabs.sendMessage(tab.id, msg)
+}
+chrome.runtime.onInstalled.addListener(function() {
+  var context = 'selection'
+  var title = 'Ich mag dieses Wort nicht'
+  var id = chrome.contextMenus.create({
+    title: title,
+    contexts: [context],
+    id: 'context' + context
+  })
+})
 
-// const httpGet = theUrl => {
-//   var xmlHttp = new XMLHttpRequest()
-//   xmlHttp.open('GET', theUrl, false)
-//   xmlHttp.send(null)
-//   return xmlHttp.responseText
-// }
-
-// const arrKeywords = JSON.parse(httpGet(CORS_PROXY + API_URL + '/maps'))
-// const arrBlacklistWords = JSON.parse(
-//   httpGet(CORS_PROXY + API_URL + '/blacklist')
-// )
-
-// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-//   if (request.message == 'get_keywords') sendResponse({ keywords: arrKeywords })
-//   if (request.message == 'get_blacklist')
-//     sendResponse({ blacklist: arrBlacklistWords })
-// })
+chrome.contextMenus.onClicked.addListener(onClickHandler)

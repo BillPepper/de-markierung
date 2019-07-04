@@ -1,13 +1,7 @@
 const refreshHighlightedKeywords = () => {
   strippedElements.forEach(function(element) {
-    countOccurences(element.innerHTML, arrKeywords)
-  })
-
-  strippedElements.forEach(function(element) {
     element.innerHTML = highlightKeywords(element.innerHTML, arrKeywords)
   })
-
-  console.log(arrFoundKeywords)
 }
 
 const stripBlacklistedItems = () => {
@@ -33,25 +27,67 @@ const elementIsBlacklisted = element => {
   return ret
 }
 
-const countOccurences = (inText, keywords) => {
-  console.log('DeM: counting')
-  debugger
-
-  for (let i = 0; i < keywords.length; i++) {
-    try {
-      inText = inText.replace(keywords[i].key, count)
-    } catch (e) {
-      console.log(e, keywords[i])
-      debugger
-    }
-  }
-  return inText
+const messageReceived = (message, sender, sendResponse) => {
+  console.log("you don't like", message.txt)
+  currentKeyword = message.txt
+  createMenu(message.txt)
 }
 
-const count = str => {
-  if (arrFoundKeywords.indexOf(str) === -1) {
-    arrFoundKeywords.push(str)
+const getAlternatives = currentKeyword => {
+  let ret = []
+  arrKeywords.forEach(wordEntry => {
+    console.log(wordEntry.key)
+
+    if (currentKeyword === wordEntry.key) {
+      console.log('found')
+      ret = wordEntry.alternatives
+    }
+  })
+  return ret
+}
+
+const createMenu = currentKeyword => {
+  debugger
+  altWords = getAlternatives(currentKeyword)
+  altWordsHTML = ''
+
+  for (let i = 0; i < altWords.length; i++) {
+    altWordsHTML += '<li>' + altWords[i].word + '</li>'
   }
+
+  let html = `<h2 id="de-markierung-text"> \
+      Womit soll das Wort '${currentKeyword}' werden? \
+    </h2> \
+    <div class="de-markierung-inputs"> \
+      <input class="input" id="wordInput" type="input"/> \
+      <input class="input" type="submit" value="Ersetzen"/> \
+    </div>
+    <div>
+      <span>Vielleicht eines dieser hier:</span>
+    ${altWordsHTML}
+    </span>
+    `
+  menu = document.createElement('div')
+  menu.id = 'de-markierung-menu'
+  menu.style =
+    'background-color: #000;background-color: rgb(0, 0, 0, 0.5); position: absolute; top: 0; left: 0;width: 100vw; height: 100vh; border-radius: 5px;'
+
+  let menuForm = document.createElement('form')
+  menuForm.id = 'menuForm'
+  menuForm.style =
+    'width: 400px; height: auto; ackground-color: #555;margin: auto;margin-top: 20%; padding: 20px;'
+
+  menuForm.innerHTML = html
+  menu.appendChild(menuForm)
+  document.body.appendChild(menu)
+}
+
+const setMenuVisible = isVisable => {
+  debugger
+  console.log('toggeling visability')
+
+  let menugBackground = document.getElementById('de-markierung-menu')
+  menugBackground.style.display = isVisable ? 'block' : 'none'
 }
 
 const highlightKeywords = (inText, keywords) => {
@@ -60,7 +96,7 @@ const highlightKeywords = (inText, keywords) => {
       inText = inText.replace(
         new RegExp(keywords[i].key, 'g'),
         '<span style="border-bottom: 2px dotted red">' +
-          keywords[i].alternatives[0].word +
+          keywords[i].key +
           '</span>'
       )
     } catch (e) {
@@ -71,54 +107,8 @@ const highlightKeywords = (inText, keywords) => {
   return inText
 }
 
-const percentToColor = number => {
-  if (number > 80) {
-    return '#d22027'
-  }
-  if (number > 60) {
-    return '#db4d41'
-  }
-  if (number > 40) {
-    return '#f140a9'
-  }
-  if (number > 20) {
-    return '#f9a766'
-  }
-  if (number > 0) {
-    return '#fff200'
-  }
-  if (number === 0) {
-    return '#006600'
-  }
-}
-
-const messageReceived = (message, sender, sendResponse) => {
-  const usrInput = window.prompt('Womit soll das Wort ersetzt werden?', '')
-
-  if (arrBlacklistWords.indexOf(usrInput) === -1) {
-    arrKeywords.push([
-      message.txt,
-      usrInput,
-      false,
-      0 // FIXME: the true and 0 value are static and should use db data or a usr decision
-    ])
-  } else {
-    alert('Dieses Wort steht auf der schwarzen Liste.')
-  }
-
-  refreshHighlightedKeywords()
-}
-
 const init = () => {
   chrome.runtime.onMessage.addListener(messageReceived)
-
-  // chrome.runtime.sendMessage({ message: 'get_keywords' }, function(response) {
-  //   arrKeywords = response.keywords
-  // })
-
-  // chrome.runtime.sendMessage({ message: 'get_blacklist' }, function(response) {
-  //   arrBlacklistWords = response.blacklist
-  // })
 
   refreshHighlightedKeywords()
 }
@@ -136,6 +126,22 @@ let arrKeywords = [
   //   ],
   //   __v: 0
   // },
+  {
+    ranking: ['provident'],
+    _id: '5d023a89ee9aab00174321a4',
+    key: 'provident',
+    alternatives: [
+      {
+        selected: 1,
+        word: 'xxx'
+      },
+      {
+        selected: 1,
+        word: 'yyy'
+      }
+    ],
+    __v: 0
+  },
   {
     ranking: ['blablatag'],
     _id: '5d023a89ee9aab00174321a4',
@@ -389,6 +395,7 @@ const arrBlacklistElements = [
   'ul'
 ]
 const strippedElements = stripBlacklistedItems()
-let arrFoundKeywords = []
+let arrUsedKeyword = []
+let currentKeyword = ''
 
 init()

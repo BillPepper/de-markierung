@@ -70,7 +70,7 @@ const createMenu = currentKeyword => {
   menu = document.createElement('div')
   menu.id = 'de-markierung-menu'
   menu.style =
-    'background-color: #000;background-color: rgb(0, 0, 0, 0.5); position: absolute; top: 0; left: 0;width: 100vw; height: 100vh; border-radius: 5px;'
+    'background-color: #000;background-color: rgb(0, 0, 0, 0.8); position: fixed; top: 0; left: 0;width: 100vw; height: 100vh; border-radius: 5px;color: #fff;z-index: 1000'
 
   let menuForm = document.createElement('form')
   menuForm.id = 'menuForm'
@@ -78,8 +78,9 @@ const createMenu = currentKeyword => {
     'width: 400px; height: auto; ackground-color: #555;margin: auto;margin-top: 20%; padding: 20px;'
 
   menuForm.innerHTML = html
+
   menu.appendChild(menuForm)
-  document.body.appendChild(menu)
+  document.body.insertBefore(menu, document.body.firstChild)
 }
 
 const setMenuVisible = isVisable => {

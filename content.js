@@ -63,7 +63,6 @@ const debug = () => {
 }
 
 const createMenu = currentKeyword => {
-  debugger
   altWords = getAlternatives(currentKeyword)
   altWordsHTML = ''
 
@@ -111,7 +110,6 @@ const removeMenu = () => {
 }
 
 const handleSubmit = e => {
-  debugger
   e.preventDefault()
   removeMenu()
   let currentFilter = [currentKeyword, e.target.wordInput.value]
@@ -123,7 +121,6 @@ const handleSubmit = e => {
 }
 
 const setMenuVisible = isVisable => {
-  debugger
   console.log('toggeling visability')
 
   let menugBackground = document.getElementById('de-markierung-menu')

@@ -83,27 +83,43 @@ const createMenu = currentKeyword => {
     }</a></li>`
   }
 
-  let html = `<h2 id="de-markierung-text"> \
-      Womit soll das Wort '${currentKeyword}' werden? \
-    </h2> \
-    <div class="de-markierung-inputs"> \
-      <input class="input" id="demWordInput" type="input"/> \
-      <input class="input" type="submit" value="Ersetzen"/> \
+  let html = `
+  <div class="container" style="display: flex">
+    <div class="usedWords" style="min-width: 300px">
+      <h2>Deine ersetzten Worte</h2>
+      <div>
+        <ul>
+          <li>lorem   ->    ipsum</li>
+          <li>dolor   ->    sit</li>
+          <li>amet    ->    contum</li>
+        </ul>
+      </div>
     </div>
-    <div>
+    <div class="addWords" style="min-width: 300px">
+      <h2 id="de-markierung-text"> \
+        Womit soll das Wort '${currentKeyword}' werden? \
+      </h2> \
+      <div class="de-markierung-inputs"> \
+        <input class="input" id="demWordInput" type="input"/> \
+        <input class="input" type="submit" value="Ersetzen"/> \
+       </div>
+      <div>
       <span>Vielleicht eines dieser hier:</span>
-    ${altWordsHTML}
-    </span>
+        <ul style="color: white !important">
+          ${altWordsHTML}
+        </ul>
+      </span>
+    </div>
     `
   menu = document.createElement('div')
   menu.id = 'de-markierung-menu'
   menu.style =
-    'background-color: #000;background-color: rgb(0, 0, 0, 0.8); position: fixed; top: 0; left: 0;width: 100vw; height: 100vh; border-radius: 5px;color: #fff;z-index: 1000'
+    'background-color: rgb(0, 0, 0, 0.8); position: fixed; top: 0; left: 0;width: 100vw; height: 100vh; border-radius: 5px;color: #fff;z-index: 1000'
 
   let menuForm = document.createElement('form')
   menuForm.id = 'menuForm'
   menuForm.style =
-    'width: 400px; height: auto; ackground-color: #555;margin: auto;margin-top: 20%; padding: 20px;'
+    'color: white !important;width: fit-content; height: auto; background-color: #333;margin: auto;margin-top: 20%; padding: 20px;border: 6px solid red;border-radius: 5px;'
 
   menuForm.innerHTML = html
   menuForm.addEventListener('submit', handleSubmit)
@@ -479,7 +495,9 @@ const arrBlacklistElements = [
   'img',
   'noscript',
   'br',
-  'ul'
+  'ul',
+  'header'
+]
 
 const arrBlacklistClassesAndIDs = [
   // faz

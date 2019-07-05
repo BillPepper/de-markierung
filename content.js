@@ -429,6 +429,12 @@ const arrBlacklistElements = [
   'link',
   'style',
   'script',
+  'ul',
+  'html',
+  'iframe',
+  'img',
+  'noscript',
+  'br',
   'ul'
 ]
 const strippedElements = stripBlacklistedItems()

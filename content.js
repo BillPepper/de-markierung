@@ -32,7 +32,7 @@ const stripBlacklistedItems = () => {
 }
 
 const elementIsBlacklisted = element => {
-  ret = false
+  let ret = false
   for (let i = 0; i < arrBlacklistElements.length; i++) {
     if (element.tagName.toLowerCase() === arrBlacklistElements[i]) {
       ret = true
@@ -67,19 +67,16 @@ const createMenu = currentKeyword => {
   altWordsHTML = ''
 
   for (let i = 0; i < altWords.length; i++) {
-    altWordsHTML +=
-      '<li><a onClick="' +
-      console.log(altWords[i].word) +
-      '">' +
-      altWords[i].word +
-      '</a></li>'
+    altWordsHTML += `<li><a id="dem-alternative-${altWords[i].word}">${
+      altWords[i].word
+    }</a></li>`
   }
 
   let html = `<h2 id="de-markierung-text"> \
       Womit soll das Wort '${currentKeyword}' werden? \
     </h2> \
     <div class="de-markierung-inputs"> \
-      <input class="input" id="wordInput" type="input"/> \
+      <input class="input" id="demWordInput" type="input"/> \
       <input class="input" type="submit" value="Ersetzen"/> \
     </div>
     <div>
@@ -102,6 +99,12 @@ const createMenu = currentKeyword => {
 
   menu.appendChild(menuForm)
   document.body.insertBefore(menu, document.body.firstChild)
+
+  altWords.forEach(wordObj => {
+    document
+      .getElementById('dem-alternative-' + wordObj.word)
+      .addEventListener('click', handleAltClick)
+  })
 }
 
 const removeMenu = () => {
@@ -109,10 +112,16 @@ const removeMenu = () => {
   document.body.removeChild(menu)
 }
 
+const handleAltClick = e => {
+  console.log('alt click', e.target.innerHTML)
+  document.getElementById('demWordInput').value = e.target.innerHTML
+  let currentFilter = [currentKeyword, e.target.innerHTML]
+}
+
 const handleSubmit = e => {
   e.preventDefault()
+  let currentFilter = [currentKeyword, e.target.demWordInput.value]
   removeMenu()
-  let currentFilter = [currentKeyword, e.target.wordInput.value]
   console.log(currentFilter)
 
   arrUsedKeywords.push(currentFilter)

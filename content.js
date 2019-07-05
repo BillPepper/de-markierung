@@ -36,14 +36,15 @@ const messageReceived = (message, sender, sendResponse) => {
 const getAlternatives = currentKeyword => {
   let ret = []
   arrKeywords.forEach(wordEntry => {
-    console.log(wordEntry.key)
-
     if (currentKeyword === wordEntry.key) {
-      console.log('found')
       ret = wordEntry.alternatives
     }
   })
   return ret
+}
+
+const debug = () => {
+  console.log('hello')
 }
 
 const createMenu = currentKeyword => {
@@ -52,7 +53,12 @@ const createMenu = currentKeyword => {
   altWordsHTML = ''
 
   for (let i = 0; i < altWords.length; i++) {
-    altWordsHTML += '<li>' + altWords[i].word + '</li>'
+    altWordsHTML +=
+      '<li><a onClick="' +
+      console.log(altWords[i].word) +
+      '">' +
+      altWords[i].word +
+      '</a></li>'
   }
 
   let html = `<h2 id="de-markierung-text"> \
@@ -78,9 +84,24 @@ const createMenu = currentKeyword => {
     'width: 400px; height: auto; ackground-color: #555;margin: auto;margin-top: 20%; padding: 20px;'
 
   menuForm.innerHTML = html
+  menuForm.addEventListener('submit', handleSubmit)
 
   menu.appendChild(menuForm)
   document.body.insertBefore(menu, document.body.firstChild)
+}
+
+const removeMenu = () => {
+  menu = document.getElementById('de-markierung-menu')
+  document.body.removeChild(menu)
+}
+
+const handleSubmit = e => {
+  e.preventDefault()
+  removeMenu()
+  // currentFilter[1] = e.target.wordInput.value
+  // arrKeywords.push(currentFilter)
+  // currentFilter = []
+  // refreshHighlightedKeywords()
 }
 
 const setMenuVisible = isVisable => {
@@ -102,7 +123,6 @@ const highlightKeywords = (inText, keywords) => {
       )
     } catch (e) {
       console.log(e, keywords[i])
-      debugger
     }
   }
   return inText
@@ -127,6 +147,22 @@ let arrKeywords = [
   //   ],
   //   __v: 0
   // },
+  {
+    ranking: ['AfD'],
+    _id: '5d023a89ee9aab00174321a4',
+    key: 'AfD',
+    alternatives: [
+      {
+        selected: 1,
+        word: 'Schwachmatenpartei'
+      },
+      {
+        selected: 1,
+        word: 'Hetzpartei'
+      }
+    ],
+    __v: 0
+  },
   {
     ranking: ['provident'],
     _id: '5d023a89ee9aab00174321a4',

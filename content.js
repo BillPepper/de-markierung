@@ -24,7 +24,7 @@ const stripBlacklistedItems = () => {
   let allNodes = document.getElementsByTagName('*')
   for (let i = 0; i < allNodes.length; i++) {
     let cn = allNodes[i]
-    if (!elementIsBlacklisted(cn)) {
+    if (!elementIsBlacklisted(cn) && !isClassOrIDBlacklisted(cn)) {
       arrRet.push(allNodes[i])
     }
   }
@@ -38,6 +38,17 @@ const elementIsBlacklisted = element => {
       ret = true
     }
   }
+
+  return ret
+}
+
+const isClassOrIDBlacklisted = element => {
+  let ret = false
+  arrBlacklistClassesAndIDs.forEach(classOrId => {
+    if (element.class === classOrId) {
+      ret = true
+    }
+  })
 
   return ret
 }
@@ -469,6 +480,12 @@ const arrBlacklistElements = [
   'noscript',
   'br',
   'ul'
+
+const arrBlacklistClassesAndIDs = [
+  // faz
+  // classes
+  'atc-ImageContainer',
+  'gh-Wrapper js-global-header-wrapper   '
 ]
 const strippedElements = stripBlacklistedItems()
 let arrUsedKeywords = []

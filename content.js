@@ -1,7 +1,22 @@
-const refreshHighlightedKeywords = () => {
-  strippedElements.forEach(function(element) {
-    element.innerHTML = highlightKeywords(element.innerHTML, arrKeywords)
-  })
+const refreshKeywords = action => {
+  if (action === 'highlight') {
+    strippedElements.forEach(function(element) {
+      element.innerHTML = highlightKeywords(
+        element.innerHTML,
+        arrKeywords,
+        false
+      )
+    })
+  }
+  if (action === 'replace') {
+    strippedElements.forEach(function(element) {
+      element.innerHTML = replaceKeywords(
+        element.innerHTML,
+        arrUsedKeywords,
+        true
+      )
+    })
+  }
 }
 
 const stripBlacklistedItems = () => {
@@ -96,12 +111,15 @@ const removeMenu = () => {
 }
 
 const handleSubmit = e => {
+  debugger
   e.preventDefault()
   removeMenu()
-  // currentFilter[1] = e.target.wordInput.value
-  // arrKeywords.push(currentFilter)
-  // currentFilter = []
-  // refreshHighlightedKeywords()
+  let currentFilter = [currentKeyword, e.target.wordInput.value]
+  console.log(currentFilter)
+
+  arrUsedKeywords.push(currentFilter)
+  currentFilter = []
+  refreshKeywords('replace')
 }
 
 const setMenuVisible = isVisable => {
@@ -114,24 +132,33 @@ const setMenuVisible = isVisable => {
 
 const highlightKeywords = (inText, keywords) => {
   for (let i = 0; i < keywords.length; i++) {
-    try {
-      inText = inText.replace(
-        new RegExp(keywords[i].key, 'g'),
-        '<span style="border-bottom: 2px dotted red">' +
-          keywords[i].key +
-          '</span>'
-      )
-    } catch (e) {
-      console.log(e, keywords[i])
-    }
+    inText = inText.replace(
+      new RegExp(keywords[i].key, 'g'),
+      '<span style="border-bottom: 2px dotted red">' +
+        keywords[i].key +
+        '</span>'
+    )
   }
   return inText
+}
+
+const replaceKeywords = (inText, keywords) => {
+  for (let i = 0; i < keywords.length; i++) {
+    inText = inText.replace(
+      new RegExp(keywords[i][0], 'g'),
+      '<span style="border-bottom: 2px dotted green">' +
+        keywords[i][1] +
+        '</span>'
+    )
+
+    return inText
+  }
 }
 
 const init = () => {
   chrome.runtime.onMessage.addListener(messageReceived)
 
-  refreshHighlightedKeywords()
+  refreshKeywords('highlight')
 }
 
 let arrKeywords = [
@@ -438,7 +465,7 @@ const arrBlacklistElements = [
   'ul'
 ]
 const strippedElements = stripBlacklistedItems()
-let arrUsedKeyword = []
+let arrUsedKeywords = []
 let currentKeyword = ''
 
 init()

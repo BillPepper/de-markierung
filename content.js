@@ -502,7 +502,7 @@ const arrBlacklistClassesAndIDs = [
   // faz
   // classes
   'atc-ImageContainer',
-  'gh-Wrapper js-global-header-wrapper   '
+  'gh-Wrapper js-global-header-wrapper'
 ]
 const strippedElements = stripBlacklistedItems()
 let arrUsedKeywords = []

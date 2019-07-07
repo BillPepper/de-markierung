@@ -183,9 +183,8 @@ const replaceKeywords = (inText, keywords) => {
         keywords[i][1] +
         '</span>'
     )
-
-    return inText
   }
+  return inText
 }
 
 const init = () => {

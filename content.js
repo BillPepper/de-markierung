@@ -107,7 +107,7 @@ const setMenuVisible = isVisable => {
 const init = () => {
   chrome.runtime.onMessage.addListener(messageReceived)
 
-  refreshKeywords('highlight')
+  updateKnownKeywords()
 }
 
 let arrBlacklistWords = [
@@ -172,77 +172,31 @@ let arrBlacklistWords = [
 
 const arrKeywords = [
   {
-    ranking: ['Afrikaner'],
-    _id: '5d023a89ee9aab00174321a4',
-    key: 'Afrikaner',
-    alternatives: [
-      {
-        selected: 1,
-        word: 'Mensch'
-      }
-    ],
-    __v: 0
-  },
-  {
-    ranking: ['Flüchtlinge'],
-    _id: '5d023a89ee9aab00174321a4',
-    key: 'Flüchtlinge',
-    alternatives: [
-      {
-        selected: 1,
-        word: 'Menschen'
-      }
-    ],
-    __v: 0
-  },
-  {
-    ranking: ['Deutschland'],
-    _id: '5d023a89ee9aab00174321a4',
-    key: 'Deutschland',
-    alternatives: [
-      {
-        selected: 1,
-        word: 'Ort'
-      }
-    ],
-    __v: 0
-  },
-  {
     ranking: ['Koalition'],
     _id: '5d023a89ee9aab00174321a4',
     key: 'Koalition',
     alternatives: [
       {
         selected: 1,
-        word: 'Verbund'
-      }
-    ],
-    __v: 0
-  },
-  {
-    ranking: ['Wirtschaft'],
-    _id: '5d023a89ee9aab00174321a4',
-    key: 'Wirtschaft',
-    alternatives: [
-      {
-        selected: 1,
-        word: 'Oarboid'
+        word: 'blablation'
       }
     ],
     __v: 0
   }
 ]
 
-const arrBlacklistedElements = ['span', 'a']
+const arrBlacklistedReplElements = ['span', 'a']
+const arrBlacklistedHighLightElements = []
 let article
-let whitelist = ['p', 'span', 'h3']
+let whitelist = ['p', 'span', 'h3', 'em']
 
 let arrUserKeywords = [['Migranten', 'Menschen'], ['Koalition', 'Blaiotion']]
+let arr
 let currentKeyword = ''
 
 const highlightWordsInText = (inputText, replacementWords) => {
   replacementWords.forEach(keyword => {
-    if (arrBlacklistedElements.indexOf(keyword.key) === -1) {
+    if (arrBlacklistedHighLightElements.indexOf(keyword.key) === -1) {
       inputText = inputText.replace(
         keyword.key,
         '<em style="color:blue">' + keyword.key + '</em>'
@@ -254,7 +208,7 @@ const highlightWordsInText = (inputText, replacementWords) => {
 
 const replaceWordsInText = (inputText, replacementWords) => {
   replacementWords.forEach(keyword => {
-    if (arrBlacklistedElements.indexOf(keyword[0]) === -1) {
+    if (arrBlacklistedReplElements.indexOf(keyword[0]) === -1) {
       inputText = inputText.replace(
         keyword[0],
         '<em style="color:green">' + keyword[1] + '</em>'
@@ -309,8 +263,7 @@ if (
   )
 }
 
-// updateKnownKeywords()
-replaceUserKeywords()
+// replaceUserKeywords()
 debugger
 
 init()

@@ -259,7 +259,7 @@ const replaceUserKeywords = () => {
 
 if (
   window.location.href ===
-  'https://www.mopo.de/news/politik-wirtschaft/schockierende-fotos-polizei-kontrolliert-auto-und-findet-fluechtling-im-handschuhfach-32610226' || 'https://www.mopo.de/sport/hsv/hsv-sakai-offen-wie-nie---ich-habe-mich-dafuer-geschaemt--dass-ich-halber-auslaender-war--32338050'
+  'https://www.mopo.de/news/politik-wirtschaft/schockierende-fotos-polizei-kontrolliert-auto-und-findet-fluechtling-im-handschuhfach-32610226' || window.location.href ==='https://www.mopo.de/sport/hsv/hsv-sakai-offen-wie-nie---ich-habe-mich-dafuer-geschaemt--dass-ich-halber-auslaender-war--32338050'
 ) {
   article = document.querySelector(
     '#dm_main_content_container > div.dm_content_block > article > div.dm_article_outer_wrapper'
@@ -304,7 +304,7 @@ if (
 
 if (
   window.location.href ===
-  'https://www.stern.de/politik/deutschland/neuregelungen-bei-migration-und-abschiebung--was-bringt-das-gesetzespaket--8745258.html'
+  'https://www.stern.de/politik/deutschland/neuregelungen-bei-migration-und-abschiebung--was-bringt-das-gesetzespaket--8745258.html' || window.location.href === 'https://www.stern.de/gesundheit/karies--was-passierte--als-der-zucker-in-die-mongolei-kam-8780674.html'
 ) {
   article = document.querySelector(
     '#main-wrapper > main > article > div.article-content > div.rtf-content-wrapper'
@@ -326,6 +326,15 @@ if (
 ) {
   article = document.querySelector(
     '#content > div > div.storywrapper > div.section.sectionZ.sectionArticle'
+  )
+}
+
+if (
+  window.location.href ===
+  'https://www.welt.de/politik/ausland/article195804563/Migration-in-die-EU-Deutschland-bleibt-Sehnsuchtsland-fuer-Asylsuchende.html'
+) {
+  article = document.querySelector(
+    '#top > main > article > div.c-sticky-container'
   )
 }
 

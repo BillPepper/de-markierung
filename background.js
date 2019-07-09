@@ -8,7 +8,7 @@ const onClickHandler = (info, tab) => {
 }
 chrome.runtime.onInstalled.addListener(function() {
   var context = 'selection'
-  var title = 'Ich mag dieses Wort nicht'
+  var title = 'Wort ersetzen'
   var id = chrome.contextMenus.create({
     title: title,
     contexts: [context],

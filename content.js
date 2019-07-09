@@ -171,12 +171,6 @@ let arrBlacklistWords = [
   'Säcke'
 ]
 
-// const arrKeywords = [
-//   ['Afrikaner', 'Mensch'],
-//   ['Melilla', 'Ort'],
-//   ['span', 'null']
-// ]
-
 const arrKeywords = [
   {
     ranking: ['Koalition'],

@@ -24,15 +24,22 @@ const createMenu = currentKeyword => {
     }</a></li>`
   }
 
+  let arrUserKeywordsHTML = ''
+
+  for (let i = 0; i < arrUserKeywords.length; i++) {
+    debugger
+    arrUserKeywordsHTML += `<li>${arrUserKeywords[i][0]} -> ${
+      arrUserKeywords[i][1]
+    }</li>`
+  }
+
   let html = `
   <div class="container" style="display: flex">
     <div class="usedWords" style="min-width: 300px">
       <h2>Deine ersetzten Worte</h2>
       <div>
         <ul>
-          <li>lorem   ->    ipsum</li>
-          <li>dolor   ->    sit</li>
-          <li>amet    ->    contum</li>
+          ${arrUserKeywordsHTML}
         </ul>
       </div>
     </div>
@@ -266,8 +273,5 @@ if (
     'body > div.page-wrapper > div.page.theme-default > main > article'
   )
 }
-
-// replaceUserKeywords()
-debugger
 
 init()

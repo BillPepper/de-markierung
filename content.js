@@ -190,7 +190,7 @@ const arrBlacklistedHighLightElements = []
 let article
 let whitelist = ['p', 'span', 'h3', 'em']
 
-let arrUserKeywords = [['Migranten', 'Menschen'], ['Koalition', 'Blaiotion']]
+let arrUserKeywords = [] // [['Migranten', 'Menschen'], ['Koalition', 'Blaiotion']]
 let arr
 let currentKeyword = ''
 
@@ -198,8 +198,12 @@ const highlightWordsInText = (inputText, replacementWords) => {
   replacementWords.forEach(keyword => {
     if (arrBlacklistedHighLightElements.indexOf(keyword.key) === -1) {
       inputText = inputText.replace(
-        keyword.key,
-        '<em style="color:blue">' + keyword.key + '</em>'
+        ' ' + keyword.key + ' ',
+        '<em style="border-bottom: 2px dotted red">' +
+          ' ' +
+          keyword.key +
+          ' ' +
+          '</em>'
       )
     }
   })

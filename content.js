@@ -319,4 +319,14 @@ if (
     '#sitecontent'
   )
 }
+
+if (
+  window.location.href ===
+  'https://www.tagesschau.de/ausland/texas-migrantenkinder-101.html'
+) {
+  article = document.querySelector(
+    '#content > div > div.storywrapper > div.section.sectionZ.sectionArticle'
+  )
+}
+
 init()

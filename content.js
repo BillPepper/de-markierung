@@ -293,4 +293,13 @@ if (
   )
 }
 
+if (
+  window.location.href ===
+  'https://www.spiegel.de/politik/ausland/clint-in-texas-hunderte-migrantenkinder-aus-umstrittenem-us-grenzlager-gebracht-a-1274130.html'
+) {
+  article = document.querySelector(
+    '#content-main > div.spArticleContent'
+  )
+}
+
 init()

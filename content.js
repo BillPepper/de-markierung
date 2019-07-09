@@ -205,7 +205,7 @@ const arrKeywords = [
 const arrBlacklistedReplElements = ['span', 'a']
 const arrBlacklistedHighLightElements = []
 let article
-let whitelist = ['p', 'span', 'h3', 'em']
+let whitelist = ['p', 'span', 'h3', 'em', 'h2']
 
 let arrUserKeywords = [] // [['Migranten', 'Menschen'], ['Koalition', 'Blaiotion']]
 let arr
@@ -311,4 +311,12 @@ if (
   )
 }
 
+if (
+  window.location.href ===
+  'https://www.sueddeutsche.de/politik/trump-usa-grenze-lager-1.4498070'
+) {
+  article = document.querySelector(
+    '#sitecontent'
+  )
+}
 init()

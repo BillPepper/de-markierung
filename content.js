@@ -284,4 +284,13 @@ if (
   )
 }
 
+if (
+  window.location.href ===
+  'https://www.bild.de/politik/ausland/politik-ausland/alan-kurdi-deutsches-rettungsschiff-von-malta-abgewiesen-63138842.bild.html'
+) {
+  article = document.querySelector(
+    '#innerWrapper > main > div:nth-child(1) > div > article > div.txt'
+  )
+}
+
 init()

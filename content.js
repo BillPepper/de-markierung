@@ -259,7 +259,7 @@ const replaceUserKeywords = () => {
 
 if (
   window.location.href ===
-  'https://www.mopo.de/news/politik-wirtschaft/schockierende-fotos-polizei-kontrolliert-auto-und-findet-fluechtling-im-handschuhfach-32610226'
+  'https://www.mopo.de/news/politik-wirtschaft/schockierende-fotos-polizei-kontrolliert-auto-und-findet-fluechtling-im-handschuhfach-32610226' || 'https://www.mopo.de/sport/hsv/hsv-sakai-offen-wie-nie---ich-habe-mich-dafuer-geschaemt--dass-ich-halber-auslaender-war--32338050'
 ) {
   article = document.querySelector(
     '#dm_main_content_container > div.dm_content_block > article > div.dm_article_outer_wrapper'

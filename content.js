@@ -19,9 +19,9 @@ const createMenu = currentKeyword => {
   altWordsHTML = ''
 
   for (let i = 0; i < altWords.length; i++) {
-    altWordsHTML += `<li><a id="dem-alternative-${altWords[i].word}">${
+    altWordsHTML += `<li><a style='color: #ff0429' id="dem-alternative-${
       altWords[i].word
-    }</a></li>`
+    }">${altWords[i].word}</a></li>`
   }
 
   let arrUserKeywordsHTML = ''
@@ -36,7 +36,7 @@ const createMenu = currentKeyword => {
   let html = `
   <div class="container" style="display: flex">
     <div class="usedWords" style="min-width: 300px">
-      <h2>Deine ersetzten Worte</h2>
+      <h2 style='margin-bottom: 20px'>Deine ersetzten Worte</h2>
       <div>
         <ul>
           ${arrUserKeywordsHTML}
@@ -44,16 +44,16 @@ const createMenu = currentKeyword => {
       </div>
     </div>
     <div class="addWords" style="min-width: 300px">
-      <h2 id="de-markierung-text"> \
-        Womit soll das Wort '${currentKeyword}' werden? \
+      <h2 id="de-markierung-text" style='margin-bottom: 20px'> \
+        Was würdest du statt '${currentKeyword}' sagen? \
       </h2> \
       <div class="de-markierung-inputs"> \
-        <input class="input" id="demWordInput" type="input"/> \
+        <input class="input" id="demWordInput" style='border: 1px solid black' type="input"/> \
         <input class="input" type="submit" value="Ersetzen"/> \
        </div>
       <div>
-      <span>Vielleicht eines dieser hier:</span>
-        <ul style="color: white !important">
+      <span >Vielleicht eines dieser Worte?</span>
+        <ul style='margin-top: 10px'>
           ${altWordsHTML}
         </ul>
       </span>
@@ -62,12 +62,12 @@ const createMenu = currentKeyword => {
   menu = document.createElement('div')
   menu.id = 'de-markierung-menu'
   menu.style =
-    'background-color: rgb(0, 0, 0, 0.8); position: fixed; top: 0; left: 0;width: 100vw; height: 100vh; border-radius: 5px;color: #fff;z-index: 1000'
+    'background-color: rgba(0, 0, 0, 0.8); position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; color: #ff0429; z-index: 1000;'
 
   let menuForm = document.createElement('form')
   menuForm.id = 'menuForm'
   menuForm.style =
-    'color: white !important;width: fit-content; height: auto; background-color: #333;margin: auto;margin-top: 20%; padding: 20px;border: 6px solid red;border-radius: 5px;'
+    'color: #ff0429 !important;width: fit-content; height: auto;margin: auto;margin-top: 20%; padding: 20px;border: 6px solid #ff0429; background-color: white'
 
   menuForm.innerHTML = html
   menuForm.addEventListener('submit', handleSubmit)

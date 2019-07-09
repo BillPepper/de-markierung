@@ -18,10 +18,14 @@ const createMenu = currentKeyword => {
   altWords = getAlternatives(currentKeyword)
   altWordsHTML = ''
 
-  for (let i = 0; i < altWords.length; i++) {
-    altWordsHTML += `<li><a style='color: #ff0429' id="dem-alternative-${
-      altWords[i].word
-    }">${altWords[i].word}</a></li>`
+  if (altWords.length > 0) {
+    for (let i = 0; i < altWords.length; i++) {
+      altWordsHTML += `<li><a style='color: #ff0429' id="dem-alternative-${
+        altWords[i].word
+      }">${altWords[i].word}</a></li>`
+    }
+  } else {
+    altWordsHTML = 'keine Vorschläge vorhanden'
   }
 
   let arrUserKeywordsHTML = ''
@@ -180,6 +184,18 @@ const arrKeywords = [
       {
         selected: 1,
         word: 'blablation'
+      }
+    ],
+    __v: 0
+  },
+  {
+    ranking: ['Afrikaner'],
+    _id: '5d023a89ee9aab00174321a4',
+    key: 'Afrikaner',
+    alternatives: [
+      {
+        selected: 1,
+        word: 'Mensch'
       }
     ],
     __v: 0

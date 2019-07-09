@@ -302,4 +302,13 @@ if (
   )
 }
 
+if (
+  window.location.href ===
+  'https://www.stern.de/politik/deutschland/neuregelungen-bei-migration-und-abschiebung--was-bringt-das-gesetzespaket--8745258.html'
+) {
+  article = document.querySelector(
+    '#main-wrapper > main > article > div.article-content > div.rtf-content-wrapper'
+  )
+}
+
 init()

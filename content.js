@@ -34,7 +34,7 @@ const createMenu = currentKeyword => {
   }
 
   let html = `
-  <div class="container" style="display: flex">
+  <div class="container" style="display: flex; font-family: arial">
     <div class="usedWords" style="min-width: 300px">
       <h2 style='margin-bottom: 20px'>Deine ersetzten Worte</h2>
       <div>

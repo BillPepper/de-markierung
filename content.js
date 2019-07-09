@@ -58,6 +58,7 @@ const createMenu = currentKeyword => {
         </ul>
       </span>
     </div>
+    <a href='mailto:demarkierung@gmail.de?subject=de-markierung&body=${arrUserKeywordsHTML}' id="dem-send" style='position: absolute; top: 0; left: 0;'>Sende Mail</a>
     `
   menu = document.createElement('div')
   menu.id = 'de-markierung-menu'

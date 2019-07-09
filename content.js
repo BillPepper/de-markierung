@@ -27,14 +27,13 @@ const createMenu = currentKeyword => {
   let arrUserKeywordsHTML = ''
 
   for (let i = 0; i < arrUserKeywords.length; i++) {
-    debugger
     arrUserKeywordsHTML += `<li>${arrUserKeywords[i][0]} -> ${
       arrUserKeywords[i][1]
     }</li>`
   }
 
   let html = `
-  <div class="container" style="display: flex; font-family: arial">
+  <div class="container" style="display: flex; font-family: arial;width: fit-content">
     <div class="usedWords" style="min-width: 300px">
       <h2 style='margin-bottom: 20px'>Deine ersetzten Worte</h2>
       <div>

@@ -14,6 +14,17 @@
 - Enable the dev-mode in chrome://extensions/
 - Click 'load unpacked' and point to the 'dist' folder
 
+### Build
+- Clone the repo to your local drive
+- In Chrome go to chrome://extensions/
+- In Dev-Mode click 'pack extension'
+
+### Installation
+- Download the crx file from git
+- Go to chrome://extensions/
+- Drag the file into the extensions window
+- Done! Enjoy a buggy experience ;)
+
 ## Known Issues
 
 - CORS is a pain in the ass

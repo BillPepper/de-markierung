@@ -176,7 +176,7 @@ let arrBlacklistWords = [
 ]
 
 const arrKeywords = [
- {
+  {
     _id: { $oid: '5d03ad2b1888011447fb3bbf' },
     key: 'fluchtbewegung',
     __v: { $numberInt: '0' },
@@ -7657,7 +7657,6 @@ const arrKeywords = [
     ],
     ranking: ['wesenseinheitstäuscher', 'daseinstäuscher']
   }
-
 ]
 
 const arrBlacklistedReplElements = ['span', 'a']
@@ -7717,7 +7716,9 @@ const replaceUserKeywords = () => {
 
 if (
   window.location.href ===
-  'https://www.mopo.de/news/politik-wirtschaft/schockierende-fotos-polizei-kontrolliert-auto-und-findet-fluechtling-im-handschuhfach-32610226' || window.location.href ==='https://www.mopo.de/sport/hsv/hsv-sakai-offen-wie-nie---ich-habe-mich-dafuer-geschaemt--dass-ich-halber-auslaender-war--32338050'
+    'https://www.mopo.de/news/politik-wirtschaft/schockierende-fotos-polizei-kontrolliert-auto-und-findet-fluechtling-im-handschuhfach-32610226' ||
+  window.location.href ===
+    'https://www.mopo.de/sport/hsv/hsv-sakai-offen-wie-nie---ich-habe-mich-dafuer-geschaemt--dass-ich-halber-auslaender-war--32338050'
 ) {
   article = document.querySelector(
     '#dm_main_content_container > div.dm_content_block > article > div.dm_article_outer_wrapper'
@@ -7755,14 +7756,14 @@ if (
   window.location.href ===
   'https://www.spiegel.de/politik/ausland/clint-in-texas-hunderte-migrantenkinder-aus-umstrittenem-us-grenzlager-gebracht-a-1274130.html'
 ) {
-  article = document.querySelector(
-    '#content-main > div.spArticleContent'
-  )
+  article = document.querySelector('#content-main > div.spArticleContent')
 }
 
 if (
   window.location.href ===
-  'https://www.stern.de/politik/deutschland/neuregelungen-bei-migration-und-abschiebung--was-bringt-das-gesetzespaket--8745258.html' || window.location.href === 'https://www.stern.de/gesundheit/karies--was-passierte--als-der-zucker-in-die-mongolei-kam-8780674.html'
+    'https://www.stern.de/politik/deutschland/neuregelungen-bei-migration-und-abschiebung--was-bringt-das-gesetzespaket--8745258.html' ||
+  window.location.href ===
+    'https://www.stern.de/gesundheit/karies--was-passierte--als-der-zucker-in-die-mongolei-kam-8780674.html'
 ) {
   article = document.querySelector(
     '#main-wrapper > main > article > div.article-content > div.rtf-content-wrapper'
@@ -7773,9 +7774,7 @@ if (
   window.location.href ===
   'https://www.sueddeutsche.de/politik/trump-usa-grenze-lager-1.4498070'
 ) {
-  article = document.querySelector(
-    '#sitecontent'
-  )
+  article = document.querySelector('#sitecontent')
 }
 
 if (

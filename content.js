@@ -20,7 +20,7 @@ const createMenu = currentKeyword => {
 
   if (altWords.length > 0) {
     for (let i = 0; i < altWords.length; i++) {
-      altWordsHTML += `<li><a style='color: #ff0429' id="dem-alternative-${
+      altWordsHTML += `<li><a style='color: #ff0429; font-size: 15px' id="dem-alternative-${
         altWords[i].word
       }">${altWords[i].word}</a></li>`
     }
@@ -39,7 +39,7 @@ const createMenu = currentKeyword => {
   let html = `
   <div class="container" style="display: flex; font-family: arial;width: fit-content">
     <div class="usedWords" style="min-width: 300px">
-      <h2 style='margin-bottom: 20px'>Deine ersetzten Worte</h2>
+      <h2 style='margin-bottom: 20px; font-size: 20px;'>Deine ersetzten Worte</h2>
       <div>
         <ul>
           ${arrUserKeywordsHTML}
@@ -47,7 +47,7 @@ const createMenu = currentKeyword => {
       </div>
     </div>
     <div class="addWords" style="min-width: 300px">
-      <h2 id="de-markierung-text" style='margin-bottom: 20px'> \
+      <h2 id="de-markierung-text" style='margin-bottom: 20px; font-size: 20px;'> \
         Was würdest du statt '${currentKeyword}' sagen? \
       </h2> \
       <div class="de-markierung-inputs"> \
@@ -55,13 +55,13 @@ const createMenu = currentKeyword => {
         <input class="input" type="submit" value="Ersetzen"/> \
        </div>
       <div>
-      <span >Vielleicht eines dieser Worte?</span>
+      <span style="font-size: 15px;">Vielleicht eines dieser Worte?</span>
         <ul style='margin-top: 10px'>
           ${altWordsHTML}
         </ul>
       </span>
     </div>
-    <a href='mailto:demarkierung@gmail.de?subject=de-markierung&body=${arrUserKeywordsHTML}' id="dem-send" style='position: absolute; top: 0; left: 0;'>Sende Mail</a>
+    <a href='mailto:demarkierung@gmail.de?subject=de-markierung&body=${arrUserKeywordsHTML}' id="dem-send" style='position: relative; display: block; margin-top: 20px; top: 0; left: 0;'>Sende uns deine Liste</a>
     `
   menu = document.createElement('div')
   menu.id = 'de-markierung-menu'

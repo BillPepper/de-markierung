@@ -6920,4 +6920,11 @@ if (
   )
 }
 
+if (
+  window.location.href ===
+  'https://www.focus.de/perspektiven/serie-die-vergessenen-fluechtlinge-eu-tuerkei-deal-vergisst-syrische-familien-in-wilden-lagern-freiwillige-helfen_id_10823551.html'
+) {
+  article = document.querySelector('#video > article')
+}
+
 init()

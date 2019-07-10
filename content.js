@@ -7687,10 +7687,7 @@ const highlightWordsInText = (inputText, replacementWords) => {
 const replaceWordsInText = (inputText, replacementWords) => {
   replacementWords.forEach(keyword => {
     if (arrBlacklistedReplElements.indexOf(keyword[0]) === -1) {
-      inputText = inputText.replace(
-        keyword[0],
-        '<em style="color:green">' + keyword[1] + '</em>'
-      )
+      inputText = inputText.replace(keyword[0], '<em>' + keyword[1] + '</em>')
     }
   })
   return inputText

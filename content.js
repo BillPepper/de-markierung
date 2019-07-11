@@ -6807,6 +6807,14 @@ const highlightWordsInText = (inputText, replacementWords) => {
           ' ' +
           '</em>'
       )
+      inputText = inputText.replace(
+        ' ' + keyword.key.charAt(0).toUpperCase() + keyword.key.slice(1) + ' ',
+        '<em style="border-bottom: 2px dotted red">' +
+          ' ' +
+          keyword.key +
+          ' ' +
+          '</em>'
+      )
     }
   })
   return inputText

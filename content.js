@@ -6915,7 +6915,7 @@ if (
 
 if (
   window.location.href ===
-  'https://www.tagesschau.de/ausland/texas-migrantenkinder-101.html'
+  'https://www.tagesschau.de/ausland/texas-migrantenkinder-101.html' || window.location.href === "https://www.tagesschau.de/ausland/mexiko-usa-migration-105.html"
 ) {
   article = document.querySelector(
     '#content > div > div.storywrapper > div.section.sectionZ.sectionArticle'
@@ -6937,5 +6937,14 @@ if (
 ) {
   article = document.querySelector('#video > article')
 }
+
+if (
+  window.location.href ===
+  "https://www.zeit.de/gesellschaft/zeitgeschehen/2019-06/sea-watch-3-seenotrettung-italien-europaeischer-gerichtshof"
+) {
+  article = document.querySelector('#js-article')
+}
+
+
 
 init()

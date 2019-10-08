@@ -30,3 +30,6 @@
 - CORS is a pain in the ass
 - When building the productin code the dev code will throw errors caused by the
   node_modules folder 
+
+
+Copyright 2019, Mattes Wenzel, all right reserved.

@@ -32,4 +32,4 @@
   node_modules folder 
 
 
-Copyright 2019, Mattes Wenzel, all right reserved.
+Copyright 2019, Mattes Wenzel, all rights reserved.

@@ -1,5 +1,5 @@
 const DeMarkierung = {
-  highlights: [],
+  highlights: ["amet", "odit"],
   replacements: [],
   settings: {
     colors: { black: "#111111", primary: "#993333" },
@@ -35,7 +35,7 @@ const DeMarkierung = {
 
     DeMarkierung.injectOverlay();
     if (debug) {
-      DeMarkierung.enableOverlay();
+      // DeMarkierung.enableOverlay();
     }
   },
   injectOverlay: () => {
@@ -52,7 +52,7 @@ const DeMarkierung = {
   enableMarks: () => {
     // console.log("updating known keywords");
     // DeMarkierung.settings.tags.forEach((tag) => {
-    //   const targetElements = article.querySelectorAll(tag);
+    //   const targetElements = DeMarkierung.target.querySelectorAll(tag);
     //   targetElements.forEach((element) => {
     //     element.innerHTML = highlightWordsInText(
     //       element.innerHTML,
@@ -60,6 +60,32 @@ const DeMarkierung = {
     //     );
     //   });
     // });
+
+    debug("enable marks");
+
+    const children = DeMarkierung.settings.target.getElementsByTagName("*");
+    if (!children) {
+      debug("body has no children");
+      return;
+    }
+
+    for (let i = 0; i < children.length; i++) {
+      for (let j = 0; j < DeMarkierung.highlights.length; j++) {
+        if (nodeInnerTextContains(children[i], DeMarkierung.highlights[j])) {
+          debug(DeMarkierung.highlights[j]);
+          // if (children[i].childElementCount === 0) {
+          //   highlightNodeText(
+          //     children[i],
+          //     DeMarkierung.highlights[j],
+          //     "#990000"
+          //   );
+          // } else {
+          //   debugger;
+          //   console.warn("not settng innerHTML when item has children");
+          // }
+        }
+      }
+    }
   },
   // disableMarks: () => {},
   enableHighlights: () => {},
@@ -127,5 +153,38 @@ const replaceNodeInnerText = (node, search, replace) => {
   node.innerText = node.innerText.replace(search, replace);
   return true;
 };
+
+const highlightNodeText = (node, search, color) => {
+  const style = `border-bottom: 2px dotted ${color}`;
+  node.innerHTML = node.innerHTML.replace(
+    search,
+    `<em style=${style}>${search}</em>`
+  );
+};
+
+// const highlightWordsInText = (inputText, replacementWords) => {
+//   console.log("highlighting words in text");
+//   replacementWords.forEach((keyword) => {
+//     if (arrBlacklistedHighLightElements.indexOf(keyword.key) === -1) {
+//       inputText = inputText.replace(
+//         " " + keyword.key + " ",
+//         '<em style="border-bottom: 2px dotted red">' +
+//           " " +
+//           keyword.key +
+//           " " +
+//           "</em>"
+//       );
+//       inputText = inputText.replace(
+//         " " + keyword.key.charAt(0).toUpperCase() + keyword.key.slice(1) + " ",
+//         '<em style="border-bottom: 2px dotted red">' +
+//           " " +
+//           keyword.key +
+//           " " +
+//           "</em>"
+//       );
+//     }
+//   });
+//   return inputText;
+// };
 
 DeMarkierung.init();

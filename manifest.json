@@ -1,26 +1,22 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
   "name": "[de]markierung",
   "description": "Word and phrase analyses for news",
   "version": "0.1.1",
   "icons": { "128": "res/icon_128.png" },
-  "browser_action": {
-    "default_icon": "res/icon.png",
-    "default_popup": "src/popup.html"
-  },
 
   "content_scripts": [
     {
       "matches": [
-        "http://127.0.0.1:5500/testpage.html*"
+        "http://127.0.0.1:5500/*"
       ],
       "js": ["src/content.js"]
     }
   ],
 
   "background": {
-    "scripts": ["src/background.js"]
+    "service_worker": "src/background.js"
   },
 
   "permissions": ["activeTab", "contextMenus"]

@@ -16,6 +16,7 @@
     "semi": "warn"
   },
   "globals": {
-    "arrKeywords": "writable"
+    "gKeywords": "writable",
+    "gOverlay": "writable"
   }
 }

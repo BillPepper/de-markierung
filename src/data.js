@@ -54,7 +54,7 @@
 //   "Säcke",
 // ];
 
-arrKeywords = [
+gKeywords = [
   {
     _id: { $oid: "dontcareaboutthatrightnow" },
     key: "ipsum",

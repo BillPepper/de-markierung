@@ -13,7 +13,7 @@ const onClickHandler = (info, tab) => {
 // add event listener for context menu option
 chrome.runtime.onInstalled.addListener(function () {
   var context = "selection";
-  var title = "Wort ersetzen";
+  var title = "Wort ersetzen (new)";
   chrome.contextMenus.create({
     title: title,
     contexts: [context],

@@ -1,22 +1,21 @@
 {
-    "env": {
-        "browser": true,
-        "webextensions": true
-    },
-    "extends": "eslint:recommended",
-    "overrides": [
-    ],
-    "parserOptions": {
-        "ecmaVersion": 2019,
-        "sourceType": "module"
-    },
-    "rules": {
-        "no-useless-return": "error",
-        "no-trailing-spaces": "error",
-        "no-debugger": "error",
-        "no-else-return": "error"
-    },
-    "globals": {
-        "arrKeywords": "readonly"
-    }
+  "env": {
+    "browser": true,
+    "webextensions": true
+  },
+  "extends": "eslint:recommended",
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-useless-return": "error",
+    "no-trailing-spaces": "error",
+    "no-debugger": "error",
+    "no-else-return": "error"
+  },
+  "globals": {
+    "arrKeywords": "readonly"
+  }
 }

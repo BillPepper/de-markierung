@@ -112,24 +112,22 @@ const init = () => {
 const highlightWordsInText = (inputText, replacementWords) => {
   console.log("highlighting words in text");
   replacementWords.forEach((keyword) => {
-    if (arrBlacklistedHighLightElements.indexOf(keyword.key) === -1) {
-      inputText = inputText.replace(
-        " " + keyword.key + " ",
-        '<em style="border-bottom: 2px dotted red">' +
-          " " +
-          keyword.key +
-          " " +
-          "</em>"
-      );
-      inputText = inputText.replace(
-        " " + keyword.key.charAt(0).toUpperCase() + keyword.key.slice(1) + " ",
-        '<em style="border-bottom: 2px dotted red">' +
-          " " +
-          keyword.key +
-          " " +
-          "</em>"
-      );
-    }
+    inputText = inputText.replace(
+      " " + keyword.key + " ",
+      '<em style="border-bottom: 2px dotted red">' +
+        " " +
+        keyword.key +
+        " " +
+        "</em>"
+    );
+    inputText = inputText.replace(
+      " " + keyword.key.charAt(0).toUpperCase() + keyword.key.slice(1) + " ",
+      '<em style="border-bottom: 2px dotted red">' +
+        " " +
+        keyword.key +
+        " " +
+        "</em>"
+    );
   });
   return inputText;
 };
@@ -169,7 +167,6 @@ const replaceUserKeywords = () => {
   });
 };
 
-const arrBlacklistedHighLightElements = [];
 let article = document.getElementById("article");
 let elementWhitelist = ["p", "span", "h3", "em", "h2", "span", "a"];
 

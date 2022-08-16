@@ -13,7 +13,8 @@
     "no-useless-return": "error",
     "no-trailing-spaces": "error",
     "no-debugger": "error",
-    "no-else-return": "error"
+    "no-else-return": "error",
+    "semi": "warn"
   },
   "globals": {
     "arrKeywords": "writable"

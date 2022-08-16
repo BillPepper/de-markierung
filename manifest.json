@@ -11,7 +11,7 @@
       "matches": [
         "http://127.0.0.1:5500/*"
       ],
-      "js": ["src/content.js"]
+      "js": ["src/data.js", "src/content.js"]
     }
   ],
 

@@ -122,80 +122,12 @@ const init = () => {
   updateKnownKeywords()
 }
 
-let arrBlacklistWords = [
-  'Neger',
-  'Hitler',
-  'Kanake',
-  'Schlitzauge',
-  'Negerlein',
-  'Arschloch',
-  'Nigger',
-  'Ficker',
-  'Muselmann',
-  'Penis',
-  'Vagina',
-  'Muschi',
-  'Pimmel',
-  'Arsch',
-  'Wixer',
-  'Hurensohn',
-  'Spasti',
-  'Spast',
-  'Fotze',
-  'Rapefugee',
-  'Asylinvasor',
-  'Penner',
-  'Pussy',
-  'Fickilant',
-  'Flüchtilant',
-  'Scheiße',
-  'scheiss',
-  'Blödmann',
-  'Pollacke',
-  'Itaker',
-  'Hottentotte',
-  'Mulatte',
-  'Maximalpigmentierter',
-  'Maximalpigmentierte',
-  'Mokkanase',
-  'Asylant',
-  'Musel',
-  'Burkaschlampe',
-  'Burkafotze',
-  'Schwuchtel',
-  'Tunte',
-  'Schwanz',
-  'Schwänze',
-  'Schwanzlutscher',
-  'Zigeuner',
-  'Arier',
-  'Bastard',
-  'Schwarzafrikaner',
-  'Tucke',
-  'Sack',
-  'Säcke'
-]
-
-const arrKeywords = [
-  {
-    _id: { $oid: 'dontcareaboutthatrightnow' },
-    key: 'ipsum',
-    __v: { $numberInt: '0' },
-    alternatives: [
-      { word: 'nipsum', selected: { $numberInt: '1' } },
-      { word: 'dipsum', selected: { $numberInt: '1' } }
-    ],
-    ranking: ['nipsum', 'dipsum']
-  }
-]
-
-const arrBlacklistedReplElements = ['span', 'a']
 const arrBlacklistedHighLightElements = []
 let article = document.getElementById('article')
-let elementWhitelist = ['p', 'span', 'h3', 'em', 'h2']
+let elementWhitelist = ['p', 'span', 'h3', 'em', 'h2', 'span', 'a']
 
-let arrUserKeywords = [['Migranten', 'Menschen'], ['Koalition', 'Blaiotion']]
-let arr
+// just a list of replacements the user has made
+let arrUserKeywords = [['Rerum', 'Bleung'], ['Koalition', 'Blaiotion']]
 let currentKeyword = ''
 
 const highlightWordsInText = (inputText, replacementWords) => {

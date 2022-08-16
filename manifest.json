@@ -3,7 +3,7 @@
 
   "name": "[de]markierung",
   "description": "Word and phrase analyses for news",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "icons": { "128": "res/icon_128.png" },
   "browser_action": {
     "default_icon": "res/icon.png",

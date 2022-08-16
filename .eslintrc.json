@@ -16,6 +16,6 @@
     "no-else-return": "error"
   },
   "globals": {
-    "arrKeywords": "readonly"
+    "arrKeywords": "writable"
   }
 }

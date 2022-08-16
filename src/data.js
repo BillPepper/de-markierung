@@ -54,7 +54,7 @@
 //   "Säcke",
 // ];
 
-const arrKeywords = [
+arrKeywords = [
   {
     _id: { $oid: "dontcareaboutthatrightnow" },
     key: "ipsum",

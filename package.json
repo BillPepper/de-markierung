@@ -1,0 +1,17 @@
+{
+  "name": "de-markierung",
+  "directories": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BillPepper/de-markierung.git"
+  },
+  "author": "Mattes Wenzel",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/BillPepper/de-markierung/issues"
+  },
+  "homepage": "https://github.com/BillPepper/de-markierung#readme",
+  "devDependencies": {
+    "eslint": "^8.22.0"
+  }
+}

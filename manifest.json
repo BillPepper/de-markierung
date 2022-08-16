@@ -13,22 +13,7 @@
   "content_scripts": [
     {
       "matches": [
-        "http://127.0.0.1:5500/testpage.html*",
-        "https://www.spiegel.de/politik/deutschland/wie-der-wolf-zum-wahlkampfthema-wird-a-1266043.html",
-
-        "https://www.bild.de/politik/ausland/politik-ausland/alan-kurdi-deutsches-rettungsschiff-von-malta-abgewiesen-63138842.bild.html",
-        "https://www.faz.net/aktuell/wirtschaft/fachkraefte-einwanderung-ein-gesetz-fuer-das-sozialsystem-16227043.html",
-        "https://www.abendblatt.de/hamburg/von-mensch-zu-mensch/article226072947/Ein-Ort-der-Begegnung-fuer-Blankeneser-und-Gefluechtete.html",
-        "https://www.mopo.de/news/politik-wirtschaft/schockierende-fotos-polizei-kontrolliert-auto-und-findet-fluechtling-im-handschuhfach-32610226",
-        "https://www.mopo.de/sport/hsv/hsv-sakai-offen-wie-nie---ich-habe-mich-dafuer-geschaemt--dass-ich-halber-auslaender-war--32338050",
-        "https://www.spiegel.de/politik/ausland/clint-in-texas-hunderte-migrantenkinder-aus-umstrittenem-us-grenzlager-gebracht-a-1274130.html",
-        "https://www.stern.de/gesundheit/karies--was-passierte--als-der-zucker-in-die-mongolei-kam-8780674.html",
-        "https://www.stern.de/politik/deutschland/neuregelungen-bei-migration-und-abschiebung--was-bringt-das-gesetzespaket--8745258.html",
-        "https://www.sueddeutsche.de/politik/trump-usa-grenze-lager-1.4498070",
-        "https://www.tagesschau.de/ausland/texas-migrantenkinder-101.html",
-        "https://www.tagesschau.de/ausland/mexiko-usa-migration-105.html",
-        "https://www.zeit.de/gesellschaft/zeitgeschehen/2019-06/sea-watch-3-seenotrettung-italien-europaeischer-gerichtshof",
-        "https://www.focus.de/perspektiven/serie-die-vergessenen-fluechtlinge-eu-tuerkei-deal-vergisst-syrische-familien-in-wilden-lagern-freiwillige-helfen_id_10823551.html"
+        "http://127.0.0.1:5500/testpage.html*"
       ],
       "js": ["src/content.js"]
     }

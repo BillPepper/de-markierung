@@ -1,7 +1,5 @@
-require("./data.js");
-
 const messageReceived = (message, sender, sendResponse) => {
-  console.log("you don't like", message.txt);
+  console.log("you don't like", message.txt, sender, sendResponse);
   currentKeyword = message.txt;
   createMenu(message.txt);
 };
@@ -17,8 +15,8 @@ const getAlternatives = (currentKeyword) => {
 };
 
 const createMenu = (currentKeyword) => {
-  altWords = getAlternatives(currentKeyword);
-  altWordsHTML = "";
+  const altWords = getAlternatives(currentKeyword);
+  let altWordsHTML = "";
 
   if (altWords.length > 0) {
     for (let i = 0; i < altWords.length; i++) {
@@ -61,7 +59,7 @@ const createMenu = (currentKeyword) => {
     </div>
     <a href='mailto:demarkierung@gmail.de?subject=de-markierung&body=${arrUserKeywordsHTML}' id="dem-send" style='position: relative; display: block; margin-top: 20px; top: 0; left: 0;'>Sende uns deine Liste</a>
     `;
-  menu = document.createElement("div");
+  const menu = document.createElement("div");
   menu.id = "de-markierung-menu";
   menu.style =
     "background-color: rgba(0, 0, 0, 0.8); position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; color: #ff0429; z-index: 1000;";
@@ -85,14 +83,12 @@ const createMenu = (currentKeyword) => {
 };
 
 const removeMenu = () => {
-  menu = document.getElementById("de-markierung-menu");
-  document.body.removeChild(menu);
+  document.body.removeChild(document.getElementById("de-markierung-menu"));
 };
 
 const handleAltClick = (e) => {
   console.log("alt click", e.target.innerHTML);
   document.getElementById("demWordInput").value = e.target.innerHTML;
-  let currentFilter = [currentKeyword, e.target.innerHTML];
 };
 
 const handleSubmit = (e) => {
@@ -106,30 +102,12 @@ const handleSubmit = (e) => {
   replaceUserKeywords();
 };
 
-const setMenuVisible = (isVisable) => {
-  console.log("toggeling visability");
-
-  let menugBackground = document.getElementById("de-markierung-menu");
-  menugBackground.style.display = isVisable ? "block" : "none";
-};
-
 const init = () => {
   console.log("init content.js");
   chrome.runtime.onMessage.addListener(messageReceived);
 
   updateKnownKeywords();
 };
-
-const arrBlacklistedHighLightElements = [];
-let article = document.getElementById("article");
-let elementWhitelist = ["p", "span", "h3", "em", "h2", "span", "a"];
-
-// just a list of replacements the user has made
-let arrUserKeywords = [
-  ["Rerum", "Bleung"],
-  ["Koalition", "Blaiotion"],
-];
-let currentKeyword = "";
 
 const highlightWordsInText = (inputText, replacementWords) => {
   console.log("highlighting words in text");
@@ -171,7 +149,7 @@ const replaceWordsInText = (inputText, replacementWords) => {
 const updateKnownKeywords = () => {
   console.log("updating known keywords");
   elementWhitelist.forEach((element) => {
-    targetElements = article.querySelectorAll(element);
+    const targetElements = article.querySelectorAll(element);
     targetElements.forEach((element) => {
       element.innerHTML = highlightWordsInText(element.innerHTML, arrKeywords);
     });
@@ -181,7 +159,7 @@ const updateKnownKeywords = () => {
 const replaceUserKeywords = () => {
   console.log("replacing user keywords");
   elementWhitelist.forEach((element) => {
-    targetElements = article.querySelectorAll(element);
+    const targetElements = article.querySelectorAll(element);
     targetElements.forEach((element) => {
       element.innerHTML = replaceWordsInText(
         element.innerHTML,
@@ -191,4 +169,14 @@ const replaceUserKeywords = () => {
   });
 };
 
+const arrBlacklistedHighLightElements = [];
+let article = document.getElementById("article");
+let elementWhitelist = ["p", "span", "h3", "em", "h2", "span", "a"];
+
+// just a list of replacements the user has made
+let arrUserKeywords = [
+  ["Rerum", "Bleung"],
+  ["Koalition", "Blaiotion"],
+];
+let currentKeyword = "";
 init();

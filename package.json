@@ -13,5 +13,8 @@
   "homepage": "https://github.com/BillPepper/de-markierung#readme",
   "devDependencies": {
     "eslint": "^8.22.0"
+  },
+  "dependencies": {
+    "eslint-plugin-import": "^2.26.0"
   }
 }

@@ -1,9 +1,3 @@
-const messageReceived = (message, sender, sendResponse) => {
-  console.log("you don't like", message.txt, sender, sendResponse);
-  currentKeyword = message.txt;
-  createMenu(message.txt);
-};
-
 const getAlternatives = (currentKeyword) => {
   let ret = [];
   arrKeywords.forEach((wordEntry) => {
@@ -32,9 +26,24 @@ const createMenu = (currentKeyword) => {
     arrUserKeywordsHTML += `<li>${arrUserKeywords[i][0]} -> ${arrUserKeywords[i][1]}</li>`;
   }
 
+  // const container = document.createElement("div");
+  // container.className = "container";
+  // container.style = "display: flex; font-family: arial;width: fit-content";
+
+  // const usedWords = document.createElement("div");
+  // usedWords.className = "usedWords";
+  // usedWords.style = "min-width: 300px";
+
+  // const headline = document.createElement("h2");
+  // headline.style = "margin-bottom: 20px; font-size: 20px;";
+  // headline.innerText = "Deine ersetzten Worte";
+
+  // const div = document.createElement("div");
+  // const ul = document.createElement("ul");
+
   let html = `
   <div class="container" style="display: flex; font-family: arial;width: fit-content">
-    <div class="usedWords" style="min-width: 300px">
+    <div style="min-width: 300px">
       <h2 style='margin-bottom: 20px; font-size: 20px;'>Deine ersetzten Worte</h2>
       <div>
         <ul>
@@ -43,10 +52,10 @@ const createMenu = (currentKeyword) => {
       </div>
     </div>
     <div class="addWords" style="min-width: 300px">
-      <h2 id="de-markierung-text" style='margin-bottom: 20px; font-size: 20px;'> \
+      <h2 style='margin-bottom: 20px; font-size: 20px;'> \
         Was würdest du statt '${currentKeyword}' sagen? \
       </h2> \
-      <div class="de-markierung-inputs"> \
+      <div> \
         <input class="input" id="demWordInput" style='border: 1px solid black' type="input"/> \
         <input class="input" type="submit" value="Ersetzen"/> \
        </div>
@@ -82,10 +91,6 @@ const createMenu = (currentKeyword) => {
   });
 };
 
-const removeMenu = () => {
-  document.body.removeChild(document.getElementById("de-markierung-menu"));
-};
-
 const handleAltClick = (e) => {
   console.log("alt click", e.target.innerHTML);
   document.getElementById("demWordInput").value = e.target.innerHTML;
@@ -94,81 +99,14 @@ const handleAltClick = (e) => {
 const handleSubmit = (e) => {
   e.preventDefault();
   let currentFilter = [currentKeyword, e.target.demWordInput.value];
-  removeMenu();
-  console.log(currentFilter);
+  DeMarkierung.disableOverlay();
+  console.log("submit:", currentFilter);
 
-  arrUserKeywords.push(currentFilter);
+  DeMarkierung.replacements.push(currentFilter);
+  DeMarkierung.enableReplace();
   currentFilter = [];
-  replaceUserKeywords();
+  // replaceUserKeywords();
 };
-
-const init = () => {
-  console.log("init content.js");
-  chrome.runtime.onMessage.addListener(messageReceived);
-
-  updateKnownKeywords();
-};
-
-const highlightWordsInText = (inputText, replacementWords) => {
-  console.log("highlighting words in text");
-  replacementWords.forEach((keyword) => {
-    inputText = inputText.replace(
-      " " + keyword.key + " ",
-      '<em style="border-bottom: 2px dotted red">' +
-        " " +
-        keyword.key +
-        " " +
-        "</em>"
-    );
-    inputText = inputText.replace(
-      " " + keyword.key.charAt(0).toUpperCase() + keyword.key.slice(1) + " ",
-      '<em style="border-bottom: 2px dotted red">' +
-        " " +
-        keyword.key +
-        " " +
-        "</em>"
-    );
-  });
-  return inputText;
-};
-
-const replaceWordsInText = (inputText, replacementWords) => {
-  console.log("replacing keywords");
-  replacementWords.forEach((keyword) => {
-    inputText = inputText.replace(
-      keyword[0],
-      '<em style="color:green">' + keyword[1] + "</em>"
-    );
-  });
-  return inputText;
-};
-
-// for all whitelisted tags, hightlight the words that are known already
-const updateKnownKeywords = () => {
-  console.log("updating known keywords");
-  elementWhitelist.forEach((element) => {
-    const targetElements = article.querySelectorAll(element);
-    targetElements.forEach((element) => {
-      element.innerHTML = highlightWordsInText(element.innerHTML, arrKeywords);
-    });
-  });
-};
-
-const replaceUserKeywords = () => {
-  console.log("replacing user keywords");
-  elementWhitelist.forEach((element) => {
-    const targetElements = article.querySelectorAll(element);
-    targetElements.forEach((element) => {
-      element.innerHTML = replaceWordsInText(
-        element.innerHTML,
-        arrUserKeywords
-      );
-    });
-  });
-};
-
-let article = document.getElementById("article");
-let elementWhitelist = ["p", "span", "h3", "em", "h2", "span", "a"];
 
 // just a list of replacements the user has made
 let arrUserKeywords = [
@@ -176,4 +114,122 @@ let arrUserKeywords = [
   ["Koalition", "Blaiotion"],
 ];
 let currentKeyword = "";
-init();
+
+const DeMarkierung = {
+  highlights: [],
+  replacements: [],
+  settings: {
+    debug: true,
+    disableHighlights: false,
+    disableMarks: false,
+    disableReplace: false,
+    tags: ["p", "span", "h1", "h2", "h3", "h4", "h5", "em", "a"],
+    target: document.getElementsByTagName("article")[0],
+  },
+
+  init: () => {
+    if (!DeMarkierung.settings.target) {
+      console.error("no article found");
+    }
+    debug("init");
+    chrome.runtime.onMessage.addListener((message) => {
+      DeMarkierung.dispatchMessage(message);
+    });
+
+    // replacing should be first
+    if (!DeMarkierung.settings.disableReplace) {
+      DeMarkierung.enableReplace();
+    }
+    if (!DeMarkierung.settings.disableMarks) {
+      DeMarkierung.enableMarks();
+    }
+    if (!DeMarkierung.settings.disableHighlights) {
+      DeMarkierung.enableHighlights();
+    }
+  },
+  enableOverlay: () => {
+    return undefined;
+  },
+
+  disableOverlay: () => {
+    document.body.removeChild(document.getElementById("de-markierung-menu"));
+  },
+  enableMarks: () => {
+    // console.log("updating known keywords");
+    // DeMarkierung.settings.tags.forEach((tag) => {
+    //   const targetElements = article.querySelectorAll(tag);
+    //   targetElements.forEach((element) => {
+    //     element.innerHTML = highlightWordsInText(
+    //       element.innerHTML,
+    //       arrKeywords
+    //     );
+    //   });
+    // });
+  },
+  // disableMarks: () => {},
+  enableHighlights: () => {},
+  // disableHighlight: () => {},
+  enableReplace: () => {
+    const children = DeMarkierung.settings.target.getElementsByTagName("*");
+    if (!children) {
+      debug("body has no children");
+      return;
+    }
+
+    for (let i = 0; i < children.length; i++) {
+      for (let j = 0; j < DeMarkierung.replacements.length; j++) {
+        if (
+          nodeInnerTextContains(children[i], DeMarkierung.replacements[j][0])
+        ) {
+          replaceNodeInnerText(
+            children[i],
+            DeMarkierung.replacements[j][0],
+            DeMarkierung.replacements[j][1]
+          );
+        }
+      }
+    }
+  },
+  disableReplace: () => {},
+  saveLists: () => {},
+  loadLists: () => {},
+  syncLists: () => {},
+  dispatchMessage: (message) => {
+    if (message.type === "USER_ADD_WORD") {
+      currentKeyword = message.payload;
+      createMenu(message.payload);
+    }
+  },
+};
+
+// helpers
+
+const debug = (message) => {
+  DeMarkierung.settings.debug && console.log(message);
+};
+
+const nodeInnerTextContains = (node, find) => {
+  if (!node || typeof node !== "object") {
+    debug("invalid tag element");
+    return false;
+  }
+
+  var re = new RegExp(find, "g");
+  if (node.innerText.match(re)) {
+    return true;
+  }
+  return false;
+};
+
+const replaceNodeInnerText = (node, search, replace) => {
+  if (!node || !search || !replace) {
+    debug("invalid args for replace");
+    return false;
+  }
+
+  node.innerText = node.innerText.replace(search, replace);
+  return true;
+};
+
+// init();
+DeMarkierung.init();

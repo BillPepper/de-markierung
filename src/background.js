@@ -1,10 +1,12 @@
 // send text to tabs to show in overlay
 const onClickHandler = (info, tab) => {
-  var sText = info.selectionText;
-  console.log("You don't like the word ", sText);
+  console.log(`You right clicked ${info.selectionText}`);
+
   let msg = {
-    txt: sText,
+    type: "USER_ADD_WORD",
+    payload: info.selectionText,
   };
+
   chrome.tabs.sendMessage(tab.id, msg);
 };
 

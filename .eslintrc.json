@@ -10,7 +10,6 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-useless-return": "error",
     "no-trailing-spaces": "error",
     "no-debugger": "error",
     "no-else-return": "error",

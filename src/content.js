@@ -1,39 +1,37 @@
+require("./data.js");
+
 const messageReceived = (message, sender, sendResponse) => {
-  console.log("you don't like", message.txt)
-  currentKeyword = message.txt
-  createMenu(message.txt)
-}
+  console.log("you don't like", message.txt);
+  currentKeyword = message.txt;
+  createMenu(message.txt);
+};
 
-const getAlternatives = currentKeyword => {
-  let ret = []
-  arrKeywords.forEach(wordEntry => {
+const getAlternatives = (currentKeyword) => {
+  let ret = [];
+  arrKeywords.forEach((wordEntry) => {
     if (currentKeyword === wordEntry.key) {
-      ret = wordEntry.alternatives
+      ret = wordEntry.alternatives;
     }
-  })
-  return ret
-}
+  });
+  return ret;
+};
 
-const createMenu = currentKeyword => {
-  altWords = getAlternatives(currentKeyword)
-  altWordsHTML = ''
+const createMenu = (currentKeyword) => {
+  altWords = getAlternatives(currentKeyword);
+  altWordsHTML = "";
 
   if (altWords.length > 0) {
     for (let i = 0; i < altWords.length; i++) {
-      altWordsHTML += `<li><a style='color: #ff0429; font-size: 15px' id="dem-alternative-${
-        altWords[i].word
-      }">${altWords[i].word}</a></li>`
+      altWordsHTML += `<li><a style='color: #ff0429; font-size: 15px' id="dem-alternative-${altWords[i].word}">${altWords[i].word}</a></li>`;
     }
   } else {
-    altWordsHTML = 'keine Vorschläge vorhanden'
+    altWordsHTML = "keine Vorschläge vorhanden";
   }
 
-  let arrUserKeywordsHTML = ''
+  let arrUserKeywordsHTML = "";
 
   for (let i = 0; i < arrUserKeywords.length; i++) {
-    arrUserKeywordsHTML += `<li>${arrUserKeywords[i][0]} -> ${
-      arrUserKeywords[i][1]
-    }</li>`
+    arrUserKeywordsHTML += `<li>${arrUserKeywords[i][0]} -> ${arrUserKeywords[i][1]}</li>`;
   }
 
   let html = `
@@ -62,131 +60,135 @@ const createMenu = currentKeyword => {
       </span>
     </div>
     <a href='mailto:demarkierung@gmail.de?subject=de-markierung&body=${arrUserKeywordsHTML}' id="dem-send" style='position: relative; display: block; margin-top: 20px; top: 0; left: 0;'>Sende uns deine Liste</a>
-    `
-  menu = document.createElement('div')
-  menu.id = 'de-markierung-menu'
+    `;
+  menu = document.createElement("div");
+  menu.id = "de-markierung-menu";
   menu.style =
-    'background-color: rgba(0, 0, 0, 0.8); position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; color: #ff0429; z-index: 1000;'
+    "background-color: rgba(0, 0, 0, 0.8); position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; color: #ff0429; z-index: 1000;";
 
-  let menuForm = document.createElement('form')
-  menuForm.id = 'menuForm'
+  let menuForm = document.createElement("form");
+  menuForm.id = "menuForm";
   menuForm.style =
-    'color: #ff0429 !important;width: fit-content; height: auto;margin: auto;margin-top: 20%; padding: 20px;border: 6px solid #ff0429; background-color: white'
+    "color: #ff0429 !important;width: fit-content; height: auto;margin: auto;margin-top: 20%; padding: 20px;border: 6px solid #ff0429; background-color: white";
 
-  menuForm.innerHTML = html
-  menuForm.addEventListener('submit', handleSubmit)
+  menuForm.innerHTML = html;
+  menuForm.addEventListener("submit", handleSubmit);
 
-  menu.appendChild(menuForm)
-  document.body.insertBefore(menu, document.body.firstChild)
+  menu.appendChild(menuForm);
+  document.body.insertBefore(menu, document.body.firstChild);
 
-  altWords.forEach(wordObj => {
+  altWords.forEach((wordObj) => {
     document
-      .getElementById('dem-alternative-' + wordObj.word)
-      .addEventListener('click', handleAltClick)
-  })
-}
+      .getElementById("dem-alternative-" + wordObj.word)
+      .addEventListener("click", handleAltClick);
+  });
+};
 
 const removeMenu = () => {
-  menu = document.getElementById('de-markierung-menu')
-  document.body.removeChild(menu)
-}
+  menu = document.getElementById("de-markierung-menu");
+  document.body.removeChild(menu);
+};
 
-const handleAltClick = e => {
-  console.log('alt click', e.target.innerHTML)
-  document.getElementById('demWordInput').value = e.target.innerHTML
-  let currentFilter = [currentKeyword, e.target.innerHTML]
-}
+const handleAltClick = (e) => {
+  console.log("alt click", e.target.innerHTML);
+  document.getElementById("demWordInput").value = e.target.innerHTML;
+  let currentFilter = [currentKeyword, e.target.innerHTML];
+};
 
-const handleSubmit = e => {
-  e.preventDefault()
-  let currentFilter = [currentKeyword, e.target.demWordInput.value]
-  removeMenu()
-  console.log(currentFilter)
+const handleSubmit = (e) => {
+  e.preventDefault();
+  let currentFilter = [currentKeyword, e.target.demWordInput.value];
+  removeMenu();
+  console.log(currentFilter);
 
-  arrUserKeywords.push(currentFilter)
-  currentFilter = []
-  replaceUserKeywords()
-}
+  arrUserKeywords.push(currentFilter);
+  currentFilter = [];
+  replaceUserKeywords();
+};
 
-const setMenuVisible = isVisable => {
-  console.log('toggeling visability')
+const setMenuVisible = (isVisable) => {
+  console.log("toggeling visability");
 
-  let menugBackground = document.getElementById('de-markierung-menu')
-  menugBackground.style.display = isVisable ? 'block' : 'none'
-}
+  let menugBackground = document.getElementById("de-markierung-menu");
+  menugBackground.style.display = isVisable ? "block" : "none";
+};
 
 const init = () => {
-  console.log('init content.js')
-  chrome.runtime.onMessage.addListener(messageReceived)
+  console.log("init content.js");
+  chrome.runtime.onMessage.addListener(messageReceived);
 
-  updateKnownKeywords()
-}
+  updateKnownKeywords();
+};
 
-const arrBlacklistedHighLightElements = []
-let article = document.getElementById('article')
-let elementWhitelist = ['p', 'span', 'h3', 'em', 'h2', 'span', 'a']
+const arrBlacklistedHighLightElements = [];
+let article = document.getElementById("article");
+let elementWhitelist = ["p", "span", "h3", "em", "h2", "span", "a"];
 
 // just a list of replacements the user has made
-let arrUserKeywords = [['Rerum', 'Bleung'], ['Koalition', 'Blaiotion']]
-let currentKeyword = ''
+let arrUserKeywords = [
+  ["Rerum", "Bleung"],
+  ["Koalition", "Blaiotion"],
+];
+let currentKeyword = "";
 
 const highlightWordsInText = (inputText, replacementWords) => {
-  console.log('highlighting words in text')
-  replacementWords.forEach(keyword => {
+  console.log("highlighting words in text");
+  replacementWords.forEach((keyword) => {
     if (arrBlacklistedHighLightElements.indexOf(keyword.key) === -1) {
       inputText = inputText.replace(
-        ' ' + keyword.key + ' ',
+        " " + keyword.key + " ",
         '<em style="border-bottom: 2px dotted red">' +
-          ' ' +
+          " " +
           keyword.key +
-          ' ' +
-          '</em>'
-      )
+          " " +
+          "</em>"
+      );
       inputText = inputText.replace(
-        ' ' + keyword.key.charAt(0).toUpperCase() + keyword.key.slice(1) + ' ',
+        " " + keyword.key.charAt(0).toUpperCase() + keyword.key.slice(1) + " ",
         '<em style="border-bottom: 2px dotted red">' +
-          ' ' +
+          " " +
           keyword.key +
-          ' ' +
-          '</em>'
-      )
+          " " +
+          "</em>"
+      );
     }
-  })
-  return inputText
-}
+  });
+  return inputText;
+};
 
 const replaceWordsInText = (inputText, replacementWords) => {
-  console.log('replacing keywords')
-  replacementWords.forEach(keyword => {
-    if (arrBlacklistedReplElements.indexOf(keyword[0]) === -1) {
-      inputText = inputText.replace(
-        keyword[0],
-        '<em style="color:green">' + keyword[1] + '</em>'
-      )
-    }
-  })
-  return inputText
-}
+  console.log("replacing keywords");
+  replacementWords.forEach((keyword) => {
+    inputText = inputText.replace(
+      keyword[0],
+      '<em style="color:green">' + keyword[1] + "</em>"
+    );
+  });
+  return inputText;
+};
 
 // for all whitelisted tags, hightlight the words that are known already
 const updateKnownKeywords = () => {
-  console.log('updating known keywords')
-  elementWhitelist.forEach(element => {
-    targetElements = article.querySelectorAll(element)
-    targetElements.forEach(element => {
-      element.innerHTML = highlightWordsInText(element.innerHTML, arrKeywords)
-    })
-  })
-}
+  console.log("updating known keywords");
+  elementWhitelist.forEach((element) => {
+    targetElements = article.querySelectorAll(element);
+    targetElements.forEach((element) => {
+      element.innerHTML = highlightWordsInText(element.innerHTML, arrKeywords);
+    });
+  });
+};
 
 const replaceUserKeywords = () => {
-  console.log('replacing user keywords')
-  elementWhitelist.forEach(element => {
-    targetElements = article.querySelectorAll(element)
-    targetElements.forEach(element => {
-      element.innerHTML = replaceWordsInText(element.innerHTML, arrUserKeywords)
-    })
-  })
-}
+  console.log("replacing user keywords");
+  elementWhitelist.forEach((element) => {
+    targetElements = article.querySelectorAll(element);
+    targetElements.forEach((element) => {
+      element.innerHTML = replaceWordsInText(
+        element.innerHTML,
+        arrUserKeywords
+      );
+    });
+  });
+};
 
-init()
+init();

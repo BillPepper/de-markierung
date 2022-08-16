@@ -116,6 +116,7 @@ const setMenuVisible = isVisable => {
 }
 
 const init = () => {
+  console.log('init content.js')
   chrome.runtime.onMessage.addListener(messageReceived)
 
   updateKnownKeywords()
@@ -175,18 +176,30 @@ let arrBlacklistWords = [
   'Säcke'
 ]
 
-const arrKeywords = []
+const arrKeywords = [
+  {
+    _id: { $oid: 'dontcareaboutthatrightnow' },
+    key: 'ipsum',
+    __v: { $numberInt: '0' },
+    alternatives: [
+      { word: 'nipsum', selected: { $numberInt: '1' } },
+      { word: 'dipsum', selected: { $numberInt: '1' } }
+    ],
+    ranking: ['nipsum', 'dipsum']
+  }
+]
 
 const arrBlacklistedReplElements = ['span', 'a']
 const arrBlacklistedHighLightElements = []
-let article
-let whitelist = ['p', 'span', 'h3', 'em', 'h2']
+let article = document.getElementById('article')
+let elementWhitelist = ['p', 'span', 'h3', 'em', 'h2']
 
-let arrUserKeywords = [] // [['Migranten', 'Menschen'], ['Koalition', 'Blaiotion']]
+let arrUserKeywords = [['Migranten', 'Menschen'], ['Koalition', 'Blaiotion']]
 let arr
 let currentKeyword = ''
 
 const highlightWordsInText = (inputText, replacementWords) => {
+  console.log('highlighting words in text')
   replacementWords.forEach(keyword => {
     if (arrBlacklistedHighLightElements.indexOf(keyword.key) === -1) {
       inputText = inputText.replace(
@@ -211,6 +224,7 @@ const highlightWordsInText = (inputText, replacementWords) => {
 }
 
 const replaceWordsInText = (inputText, replacementWords) => {
+  console.log('replacing keywords')
   replacementWords.forEach(keyword => {
     if (arrBlacklistedReplElements.indexOf(keyword[0]) === -1) {
       inputText = inputText.replace(
@@ -222,8 +236,10 @@ const replaceWordsInText = (inputText, replacementWords) => {
   return inputText
 }
 
+// for all whitelisted tags, hightlight the words that are known already
 const updateKnownKeywords = () => {
-  whitelist.forEach(element => {
+  console.log('updating known keywords')
+  elementWhitelist.forEach(element => {
     targetElements = article.querySelectorAll(element)
     targetElements.forEach(element => {
       element.innerHTML = highlightWordsInText(element.innerHTML, arrKeywords)
@@ -232,7 +248,8 @@ const updateKnownKeywords = () => {
 }
 
 const replaceUserKeywords = () => {
-  whitelist.forEach(element => {
+  console.log('replacing user keywords')
+  elementWhitelist.forEach(element => {
     targetElements = article.querySelectorAll(element)
     targetElements.forEach(element => {
       element.innerHTML = replaceWordsInText(element.innerHTML, arrUserKeywords)

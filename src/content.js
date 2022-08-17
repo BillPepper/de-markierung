@@ -35,7 +35,7 @@ const DeMarkierung = {
 
     DeMarkierung.injectOverlay();
     if (debug) {
-      // DeMarkierung.enableOverlay();
+      DeMarkierung.enableOverlay();
     }
   },
   injectOverlay: () => {

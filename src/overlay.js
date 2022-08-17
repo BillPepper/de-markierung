@@ -22,6 +22,7 @@ const createOverlay = () => {
     "box-sizing: content-box",
     "margin: auto",
     "padding: 10px",
+    "font-family: sans-serif",
     "background-color: white !important;",
   ];
 
@@ -51,13 +52,15 @@ const createOverlay = () => {
   headline.innerText = "( d e ) m a r k i e r u n g";
   modal.appendChild(headline);
 
+  // left column
   const left = document.createElement("div");
-  left.style = "outline: 1px solid salmon;";
+  left.style = "border-right: 1px solid red;";
   modal.appendChild(left);
 
+  // left headline
   const leftHeadline = document.createElement("h2");
   leftHeadline.innerText = "Deine ersetzten Worte";
-  leftHeadline.style = "color: red;font-family: arial;font-size: 15px";
+  leftHeadline.style = "color: red;font-family: arial;font-size: 16px";
   left.appendChild(leftHeadline);
 
   const userReplacements = document.createElement("ul");
@@ -66,14 +69,41 @@ const createOverlay = () => {
   userReplacements.style = "color: red;list-style: none;padding: 0";
   left.appendChild(userReplacements);
 
+  // right column
   const right = document.createElement("div");
-  right.style = "outline: 1px solid salmon;";
   modal.appendChild(right);
 
   const rightHeadline = document.createElement("h2");
   rightHeadline.innerText = "Was würdest du statt 'xyz' sagen?";
-  rightHeadline.style = "color: red;font-family: arial;font-size: 15px";
+  rightHeadline.style = "color: red;font-family: arial;font-size: 16px";
   right.appendChild(rightHeadline);
+
+  const userInputWrapper = document.createElement("div");
+  userInputWrapper.style = "display:flex;width:100%";
+  right.appendChild(userInputWrapper);
+
+  const textfield = document.createElement("input");
+  textfield.type = "text";
+  textfield.placeholder = "Neues Wort";
+  textfield.style = "height:30px;border:1px solid red;flex-grow:1;";
+  userInputWrapper.appendChild(textfield);
+
+  const submit = document.createElement("button");
+  submit.type = "submit";
+  submit.innerText = "Ersetzen";
+  submit.style =
+    "color:white;background-color:red;padding:0 10px;border:none;height:30px";
+  userInputWrapper.appendChild(submit);
+
+  const suggestionHeadline = document.createElement("h3");
+  suggestionHeadline.innerText = "Vorschläge";
+  suggestionHeadline.style = "color:red;font-size:12px;";
+  right.appendChild(suggestionHeadline);
+
+  const suggestions = document.createElement("ul");
+  suggestions.innerHTML = "<li>lorem</li><li>blub</li><li>babel</li>";
+  suggestions.style = "color: red;list-style: none;padding: 0";
+  right.appendChild(suggestions);
 
   return overlay;
 };

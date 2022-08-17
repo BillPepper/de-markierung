@@ -26,16 +26,41 @@ const createOverlay = () => {
     "background-color: white !important;",
   ];
 
+  const closeStyles = [
+    "position: absolute",
+    "right: 0",
+    "top: 0",
+    "border: none",
+    "width: 40px;",
+    "height:40px",
+    "font-size:40px",
+    "line-height:40px",
+    "font-weight:bold",
+    "color:red;",
+  ];
+
+  const h1Styles = [
+    "color: red",
+    "font-size: 30px",
+    "font-family:arial",
+    "margin:0",
+    "padding:0",
+    "grid-column-end: 3",
+    "grid-column-start: 1",
+  ];
+
+  const h2Styles = ["color: red", "font-family: arial", "font-size: 16px"];
+
   // container
   const overlay = document.createElement("div");
   overlay.id = "dm-overlay";
-  overlay.style = overlayStyles.join(";");
+  overlay.style = overlayStyles.join(" !important;");
 
   // close
   const close = document.createElement("button");
   close.innerText = "X";
-  close.style =
-    "position: absolute;right: 0;top: 0;border: none;width: 40px; height:40px;font-size:40px;line-height:40px;font-weight:bold;color:red;";
+  close.style = closeStyles.join(" !important;");
+
   close.onclick = () => DeMarkierung.disableOverlay();
   overlay.appendChild(close);
 
@@ -47,8 +72,7 @@ const createOverlay = () => {
 
   // headline
   const headline = document.createElement("h1");
-  headline.style =
-    "color: red;font-size: 30px;font-family:arial;margin:0;padding:0;grid-column-end: 3;grid-column-start: 1;";
+  headline.style = h1Styles.join(" !important;");
   headline.innerText = "( d e ) m a r k i e r u n g";
   modal.appendChild(headline);
 
@@ -60,7 +84,7 @@ const createOverlay = () => {
   // left headline
   const leftHeadline = document.createElement("h2");
   leftHeadline.innerText = "Deine ersetzten Worte";
-  leftHeadline.style = "color: red;font-family: arial;font-size: 16px";
+  leftHeadline.style = h2Styles.join(" !important;");
   left.appendChild(leftHeadline);
 
   const userReplacements = document.createElement("ul");
@@ -75,7 +99,7 @@ const createOverlay = () => {
 
   const rightHeadline = document.createElement("h2");
   rightHeadline.innerText = "Was würdest du statt 'xyz' sagen?";
-  rightHeadline.style = "color: red;font-family: arial;font-size: 16px";
+  rightHeadline.style = h2Styles.join(" !important;");
   right.appendChild(rightHeadline);
 
   const userInputWrapper = document.createElement("div");

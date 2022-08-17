@@ -1,6 +1,6 @@
 const DeMarkierung = {
-  highlights: ["amet", "odit"],
-  replacements: [],
+  highlights: [],
+  replacements: [["amet", "odit"]],
   settings: {
     colors: { black: "#111111", primary: "#993333" },
     debug: true,
@@ -77,6 +77,10 @@ const DeMarkierung = {
   syncLists: () => {},
   dispatchMessage: (message) => {
     if (message.type === "USER_ADD_WORD") {
+      DeMarkierung.newReplacement = message.payload;
+      DeMarkierung.enableOverlay();
+    }
+    if (message.type === "USER_OVERLAY_CLOSE") {
       DeMarkierung.newReplacement = message.payload;
       DeMarkierung.enableOverlay();
     }

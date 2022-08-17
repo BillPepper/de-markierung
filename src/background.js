@@ -1,6 +1,6 @@
 // send text to tabs to show in overlay
 const onClickHandler = (info, tab) => {
-  console.log(`You right clicked ${info.selectionText}`);
+  console.log(`You right clicked ${info.selectionText} ${tab.id}`);
 
   let msg = {
     type: "USER_ADD_WORD",

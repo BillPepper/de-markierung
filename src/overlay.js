@@ -30,6 +30,14 @@ const createOverlay = () => {
   overlay.id = "dm-overlay";
   overlay.style = overlayStyles.join(";");
 
+  // close
+  const close = document.createElement("button");
+  close.innerText = "X";
+  close.style =
+    "position: absolute;right: 0;top: 0;border: none;width: 40px; height:40px;font-size:40px;line-height:40px;font-weight:bold;color:red;";
+  close.onclick = () => DeMarkierung.disableOverlay();
+  overlay.appendChild(close);
+
   // modal
   const modal = document.createElement("div");
   modal.id = "dm-modal;";

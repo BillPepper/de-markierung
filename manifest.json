@@ -3,15 +3,13 @@
 
   "name": "[de]markierung",
   "description": "Word and phrase analyses for news",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "icons": { "128": "res/icon_128.png" },
 
   "content_scripts": [
     {
-      "matches": [
-        "http://127.0.0.1:5500/*"
-      ],
-      "js": ["src/content.js"]
+      "matches": ["http://127.0.0.1:5500/*"],
+      "js": ["src/data.js", "src/overlay.js", "src/content.js"]
     }
   ],
 

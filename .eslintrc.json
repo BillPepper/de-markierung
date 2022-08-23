@@ -1,0 +1,23 @@
+{
+  "env": {
+    "browser": true,
+    "webextensions": true
+  },
+  "extends": "eslint:recommended",
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-trailing-spaces": "error",
+    "no-debugger": "error",
+    "no-else-return": "error",
+    "semi": "warn"
+  },
+  "globals": {
+    "DeMarkierung": "writable",
+    "gKeywords": "writable",
+    "gOverlay": "writable"
+  }
+}

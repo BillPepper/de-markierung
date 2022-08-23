@@ -1,22 +1,24 @@
 // send text to tabs to show in overlay
 const onClickHandler = (info, tab) => {
-  var sText = info.selectionText
-  console.log("You don't like the word ", sText)
+  console.log(`You right clicked ${info.selectionText} ${tab.id}`);
+
   let msg = {
-    txt: sText
-  }
-  chrome.tabs.sendMessage(tab.id, msg)
-}
+    type: "USER_ADD_WORD",
+    payload: info.selectionText,
+  };
+
+  chrome.tabs.sendMessage(tab.id, msg);
+};
 
 // add event listener for context menu option
-chrome.runtime.onInstalled.addListener(function() {
-  var context = 'selection'
-  var title = 'Wort ersetzen'
-  var id = chrome.contextMenus.create({
+chrome.runtime.onInstalled.addListener(function () {
+  var context = "selection";
+  var title = "Wort ersetzen (new)";
+  chrome.contextMenus.create({
     title: title,
     contexts: [context],
-    id: 'context' + context
-  })
-})
+    id: "context" + context,
+  });
+});
 
-chrome.contextMenus.onClicked.addListener(onClickHandler)
+chrome.contextMenus.onClicked.addListener(onClickHandler);

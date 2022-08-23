@@ -12,5 +12,3 @@
 - Go to chrome://extensions/
 - Drag the file into the extensions window
 
-
-Copyright 2019, Mattes Wenzel, all rights reserved.
